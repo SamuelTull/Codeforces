@@ -1,62 +1,40 @@
 n, q = map(int, input().split())
 S = input()
 
-X = [0] * (n + 1)
-Y = [0] * (n + 1)
-x = 0
-y = 0
+# precompute
+X = [None] * (n + 1)
+Y = [None] * (n + 1)
+X[0] = Y[0] = x = y = 0
+
 for i in range(n):
-    s = S[i]
-    if s == "U":
+    if S[i] == "U":
         y += 1
-    elif s == "D":
+    elif S[i] == "D":
         y -= 1
-    elif s == "L":
+    elif S[i] == "L":
         x -= 1
-    elif s == "R":
+    else:
         x += 1
     X[i + 1] = x
     Y[i + 1] = y
 
 for i in range(q):
     x, y, l, r = map(int, input().split())
-    S = {(i, j) for i, j in zip(X[:l], Y[:l])}  # indexing might be 1 off
-    S = set()
-    for i, j in zip(X[r:], Y[r:]):
-        print("PRE", i, j)
-        S.add((i, j))
-
-    print(S)
-    if (x, y) in S:
-        print("YES")
-        continue
-
-    # between l and r
-    posX = X[l - 1]  # indexing might be 1 off
-    posY = Y[l - 1]  # indexing might be 1 off
-    S = {((2 * posX - i), (2 * posY - j)) for i, j in zip(X[l:r], Y[l:r])}
-    S = set()
-    for i, j in zip(X[l:r], Y[l:r]):
-        print("DURING", i, j)
-        S.add(((2 * posX - i), (2 * posY - j)))
-
-    print(S)
-    if (x, y) in S:
-        print("YES")
-        continue
-
-    posX2 = X[r]  # indexing might be 1 off
-    posY2 = Y[r]  # indexing might be 1 off
-
-    dx = posX2 - posX
-    dy = posY2 - posY
-    S = {(i + dx, j + dy) for i, j in zip(X[r:], Y[r:])}
-    S = set()
-    for i, j in zip(X[r:], Y[r:]):
-        print("POST", i, j)
-        S.add((i + dx, j + dy))
-    print(S)
-    if (x, y) in S:
-        print("YES")
-        continue
-    print("NO")
+    found = False
+    i = 0
+    while i < l and not found:
+        if X[i] == x and Y[i] == y:
+            found = True
+        i += 1
+    while i < r and not found:
+        j = l + r - i - 1
+        cx = X[l - 1] + X[r] - X[j]
+        cy = Y[l - 1] + Y[r] - Y[j]
+        if cx == x and cy == y:
+            found = True
+        i += 1
+    while i < n + 1 and not found:
+        if X[i] == x and Y[i] == y:
+            found = True
+        i += 1
+    print("YES" if found else "NO")
