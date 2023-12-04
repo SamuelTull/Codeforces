@@ -13,10 +13,10 @@
 
 # edit post submission
 # seems that 1<= a,b,c RTQ!
-# if and only if difference between b and c is even
-# we can make b and c equal (once equal can make X,0,0)
-# suffices to check if difference between b and c is even
-# return 1 - (b-c) % 2, 1 - (c-a) % 2, 1 - (a-b) % 2
+# simplest way to think
+# parity CHANGES for a,b and c each operation
+# if b and c different parity then will always have different parity
+# therefore cannot get to X00
 
 
 cases = int(input())
