@@ -1,11 +1,14 @@
 n, q = map(int, input().split())
 S = input()
+# L to the left of l (with 1 indexing)
+# R to the right of r (with 1 indexing)
 
-# precompute
-X = [None] * (n + 1)
-Y = [None] * (n + 1)
-X[0] = Y[0] = x = y = 0
+from collections import defaultdict
 
+pts = defaultdict(list)
+pts[(0, 0)].append(0)
+lst = [(0, 0)]
+x = y = 0
 for i in range(n):
     if S[i] == "U":
         y += 1
@@ -15,26 +18,25 @@ for i in range(n):
         x -= 1
     else:
         x += 1
-    X[i + 1] = x
-    Y[i + 1] = y
+    pts[(x, y)].append(i + 1)
+    lst.append((x, y))
 
-for i in range(q):
+# just have to check if x,y is in or L+R-x i think
+
+for _ in range(q):
     x, y, l, r = map(int, input().split())
+    l -= 1
+    Lx, Ly = L = lst[l]
+    Rx, Ry = R = lst[r]
     found = False
-    i = 0
-    while i < l and not found:
-        if X[i] == x and Y[i] == y:
+
+    for i in pts[(x, y)]:
+        if i <= l or i >= r:
             found = True
-        i += 1
-    while i < r and not found:
-        j = l + r - i - 1
-        cx = X[l - 1] + X[r] - X[j]
-        cy = Y[l - 1] + Y[r] - Y[j]
-        if cx == x and cy == y:
-            found = True
-        i += 1
-    while i < n + 1 and not found:
-        if X[i] == x and Y[i] == y:
-            found = True
-        i += 1
+            break
+    if not found:
+        for i in pts[(Lx + Rx - x, Ly + Ry - y)]:
+            if l < i < r:
+                found = True
+                break
     print("YES" if found else "NO")
