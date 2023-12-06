@@ -1,10 +1,11 @@
 import os
 from io import BytesIO
 
-input = BytesIO(os.read(0, os.fstat(0).st_size)).read().splitlines()
+input = BytesIO(os.read(0, os.fstat(0).st_size)).readline
 ans = []
 
-# n = int(input())
+# cases = int(input())
+# for _ in range(cases):
 # nums = map(int, input().split())
 # string = input().decode().rstrip()
 
