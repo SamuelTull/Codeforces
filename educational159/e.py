@@ -10,14 +10,15 @@ starts = {}
 ends = {}
 
 BASE = 27
+MOD = 10**18 + 3
 
 for s in ss:
     prefix_hash = 0
     suffix_hash = 0
 
     for i in range(len(s)):
-        prefix_hash = prefix_hash * BASE + (ord(s[i]) - ord("a") + 1)
-        suffix_hash = suffix_hash * BASE + (ord(s[-i - 1]) - ord("a") + 1)
+        prefix_hash = (prefix_hash * BASE + (ord(s[i]) - ord("a") + 1)) % MOD
+        suffix_hash = (suffix_hash * BASE + (ord(s[-i - 1]) - ord("a") + 1)) % MOD
         starts[prefix_hash] = starts.get(prefix_hash, 0) + 1
         ends[suffix_hash] = ends.get(suffix_hash, 0) + 1
 
