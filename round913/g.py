@@ -1,5 +1,6 @@
 import os
 from io import BytesIO
+from collections import deque
 
 input = BytesIO(os.read(0, os.fstat(0).st_size)).readline
 ans = []
@@ -7,31 +8,53 @@ ans = []
 
 cases = int(input())
 
+# count how many lights are switched by other lights
+# any that are not, must be switched by the original
+# see what is is after that
+# everything else must be in a cycle
+# can pick n of these to switch- can only turn off even number of lights
+# if S[i] for i in cycle is odd - impossible.
+# pick smallest n of these to switch - have to either start or end with i - for all i that is on.
 
 for case_i in range(cases):
     n = int(input())
-    s = int(input().decode().rstrip()[::-1], 2)
-    nums = list(map(int, input().decode().rstrip().split()))
-    for i in range(len(nums)):
-        nums[i] = (1 << (nums[i] - 1)) + (1 << (i))
-    S = list(set(nums))
+    s = [bool(int(x)) for x in input().decode().rstrip()]
+    a = [int(x) - 1 for x in input().decode().rstrip().split()]
+    print("NEW CASE", "\ns", s, "\na", a)
 
-    dp = [[1e10] * (1 << (n + 1)) for _ in range(len(S) + 1)]
-    dp[0][0] = 0
-    for i in range(1, len(S) + 1):
-        for j in range((1 << (n + 1))):
-            dp[i][j] = min(dp[i][j], dp[i - 1][j])
-            dp[i][j ^ S[i - 1]] = min(dp[i][j ^ S[i - 1]], dp[i - 1][j] + 1)
-    if dp[len(S)][s] == 1e10:
-        ans.append("-1")
-    else:
-        ans.append(str(dp[len(S)][s]))
-        subset = []
-        j = s
-        for i in range(len(S), 0, -1):
-            if dp[i][j] != dp[i - 1][j]:
-                subset.append(nums.index(S[i - 1]) + 1)
-                j ^= S[i - 1]
-        ans.append(" ".join(map(str, subset)))
+    count = [0] * n
+    for x in a:
+        count[x] += 1
+    print("count", count)
 
-os.write(1, "\n".join(ans).encode())
+    Q = deque([i for i in range(n) if count[i] == 0])
+    done = [False] * n
+    this = 0
+    seen = set()
+    while Q:
+        i = Q.popleft()
+        if i in seen:
+            continue
+        seen.add(i)
+        if s[i]:
+            # print("switching on ", i, "also switching", a[i])
+            done[i] = True
+            this += 1
+            s[i] = False
+            s[a[i]] = not s[a[i]]
+            seen = set()
+        else:
+            Q.append(i)
+    print("DONE", done)
+    print("s", s)
+    for i in range(n):
+        if s[i] and not done[i]:
+            # find cycle
+            cycle = [i]
+            j = a[i]
+            while j != i:
+                cycle.append(j)
+                j = a[j]
+                print("cycle", i, cycle)
+                if len(cycle) > n:
+                    assert False

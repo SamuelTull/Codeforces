@@ -10,9 +10,11 @@ ss = [input().decode().rstrip() for _ in range(n)]
 starts = {}
 ends = {}
 
-MOD, MOD2 = random.sample(
-    [10**9 + 7, 10**9 + 9, 10**9 + 21, 10**9 + 33, 10**9 + 87], 2
-)
+
+MOD_9 = [10**9 + 7, 10**9 + 9, 10**9 + 21, 10**9 + 33, 10**9 + 87]
+MOD, MOD2 = random.sample(MOD_9, 2)
+# MOD_18 = [10**18 + 61, 10**18 + 63, 10**18 + 91, 10**18 + 103, 10**18 + 123]
+# MOD = random.choice(MOD_18)
 BASE = random.randint(27, 100)
 BASE2 = random.randint(27, 100)
 
