@@ -1,5 +1,6 @@
 import os
 from io import BytesIO
+import random
 
 input = BytesIO(os.read(0, os.fstat(0).st_size)).readline
 
@@ -9,18 +10,27 @@ ss = [input().decode().rstrip() for _ in range(n)]
 starts = {}
 ends = {}
 
-BASE = 27
-MOD = 10**18 + 3
+MOD, MOD2 = random.sample(
+    [10**9 + 7, 10**9 + 9, 10**9 + 21, 10**9 + 33, 10**9 + 87], 2
+)
+BASE = random.randint(27, 100)
+BASE2 = random.randint(27, 100)
 
 for s in ss:
     prefix_hash = 0
+    prefix_hash1 = 0
     suffix_hash = 0
+    suffix_hash1 = 0
 
     for i in range(len(s)):
         prefix_hash = (prefix_hash * BASE + (ord(s[i]) - ord("a") + 1)) % MOD
+        prefix_hash1 = (prefix_hash1 * BASE2 + (ord(s[i]) - ord("a") + 1)) % MOD2
         suffix_hash = (suffix_hash * BASE + (ord(s[-i - 1]) - ord("a") + 1)) % MOD
-        starts[prefix_hash] = starts.get(prefix_hash, 0) + 1
-        ends[suffix_hash] = ends.get(suffix_hash, 0) + 1
+        suffix_hash1 = (suffix_hash1 * BASE2 + (ord(s[-i - 1]) - ord("a") + 1)) % MOD2
+        pre = prefix_hash * (10**9 + 81) + prefix_hash1
+        suf = suffix_hash * (10**9 + 81) + suffix_hash1
+        starts[pre] = starts.get(pre, 0) + 1
+        ends[suf] = ends.get(suf, 0) + 1
 
 
 ans = 2 * n * sum(len(s) for s in ss)
