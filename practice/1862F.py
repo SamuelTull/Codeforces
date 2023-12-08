@@ -12,21 +12,25 @@ for _ in range(int(input())):
     n = int(input())
     s = list(map(int, input().split()))
     sum_s = sum(s)
-    dp = [False] * (sum_s + 1)
-    dp[0] = True
+    # dp = [False] * (sum_s + 1)
+    dp = 1
     for i in range(n):
-        for j in range(sum_s, s[i] - 1, -1):
-            dp[j] |= dp[j - s[i]]
+        # dp[j] |= dp[j - s[i]]
+        dp |= dp << s[i]
     # precompute max up to i for all i
     # rather than for each t going back to the previous max
+    # we need to know for every t what is the most we can fit into bag 1
+    # hence below
+
+    DP = [0] * (sum_s + 1)
     for i in range(sum_s + 1):
-        if dp[i]:
-            dp[i] = i
+        if dp & (1 << i):
+            DP[i] = i
         else:
-            dp[i] = dp[i - 1]
+            DP[i] = DP[i - 1]
     t = 0
     while True:
-        if sum_s - dp[min(sum_s, M * t)] <= m * t:
+        if sum_s - DP[min(sum_s, M * t)] <= m * t:
             ans.append(t)
             break
         t += 1
