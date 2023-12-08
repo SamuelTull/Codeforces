@@ -35,4 +35,4 @@ for s in S:
 
 BASE match characters, for lowercase letters use 27 and s = ord(s) - ord(a) + 1 (otherwise "" = "a" = "aaa")
 
-MOD used to stop getting too large. Picked as big prime to reduce chance of hash collisions. Common: 10^9 + 7  however this got wrong answer 10^18 + 3 worked. 
+MOD used to stop getting too large. Picked as big prime to reduce chance of hash collisions. Common: 10^9 + 7  however this got wrong answer 10^18 + 3 worked. using multiple hashes getting lots of MLE TLE, think my go to should be 10^18. use a random base so unhackable. 
