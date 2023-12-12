@@ -28,30 +28,31 @@ for _ in range(n - 1):
     adj[u - 1].append(v - 1)
     adj[v - 1].append(u - 1)
 DP = [-2 for _ in range(n)]  # cant be below -1
-
-Q = deque([(0, -1)])
+parent = [-1 for _ in range(n)]
+Q = deque([0])
 while Q:
-    (u, p) = Q.popleft()
+    u = Q.popleft()
     ok = True
     s = nums[u]
     for v in adj[u]:
-        if v != p:
+        if v != parent[u]:
+            parent[v] = u
             if DP[v] == -2:
-                Q.append((v, u))
+                Q.append(v)
                 ok = False
             else:
                 s += max(0, DP[v])
     if ok:
         DP[u] = s
     else:
-        Q.append((u, p))
+        Q.append(u)
 
-Q = deque([(u, 0) for u in adj[0]])
+Q = deque([u for u in adj[0]])
 while Q:
-    (u, p) = Q.popleft()
-    DP[u] = DP[u] + max(0, DP[p] - max(0, DP[u]))
+    u = Q.popleft()
+    DP[u] = DP[u] + max(0, DP[parent[u]] - max(0, DP[u]))
     for v in adj[u]:
-        if v != p:
-            Q.append((v, u))
+        if v != parent[u]:
+            Q.append(v)
 
 os.write(1, "\n".join(map(str, DP)).encode())
