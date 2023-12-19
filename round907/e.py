@@ -2,6 +2,8 @@ import os
 from io import BytesIO
 
 input = BytesIO(os.read(0, os.fstat(0).st_size)).readline
+print = lambda ans: os.write(1, ("\n".join(map(str, ans)) + "\n").encode())
+print_line = lambda ans: os.write(1, (str(ans) + "\n").encode())
 ans = []
 
 for _ in range(int(input())):

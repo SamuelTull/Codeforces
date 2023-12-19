@@ -6,9 +6,11 @@ ans = []
 
 for _ in range(int(input())):
     n = int(input())
-    n, *nums = map(int, input().split())
-    nums = list(map(int, input().split()))
-    string = input().decode().rstrip()
+    nums = input().decode().strip()
+    s = 0
+    for i in range(26):
+        if nums.count(chr(65 + i)) > i:
+            s += 1
 
-
+    ans.append(str(s))
 os.write(1, "\n".join(ans).encode())
