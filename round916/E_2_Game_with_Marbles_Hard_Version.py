@@ -10,7 +10,7 @@ for _ in range(int(input())):
     A = 0
     B = 0
     for i in range(n):
-        idx = ss[i][0]
+        idx = ss[i]
         if i % 2 == 0:
             A += a[idx] - 1
         else:

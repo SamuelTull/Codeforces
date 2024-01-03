@@ -1,8 +1,6 @@
-import os
-from io import BytesIO
+import sys
 
-input = BytesIO(os.read(0, os.fstat(0).st_size)).readline
-ans = []
+input = sys.stdin.readline
 
 for _ in range(int(input())):
     this = []
@@ -12,6 +10,4 @@ for _ in range(int(input())):
     for i in range(n - k - 1, 0, -1):
         this.append(i)
 
-    ans.append(" ".join(map(str, this)))
-
-os.write(1, "\n".join(ans).encode())
+    print(" ".join(map(str, this)))

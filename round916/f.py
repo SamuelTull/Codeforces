@@ -39,5 +39,3 @@ for _ in range(int(input())):
 
     ans.append(str(P[0]))
 os.write(1, "\n".join(ans).encode())
-
-
