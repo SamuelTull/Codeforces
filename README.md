@@ -4,7 +4,7 @@ Attempting contests and past problems to get better at coding. Initially in Pyth
 ## Lessons Learnt 
 
 ### Round 918 (1915F)  
-Count number of intervals entirely within another interval: number of pairs of intervals [a1,b1], [a2,b2] such that a1 < a2 < b2 < a1. 
+Count number of intervals entirely within another interval: that is to count the number of pairs of intervals [a1,b1], [a2,b2] such that a1 < a2 < b2 < b1. 
 ```
 Initialise list A = []  
 Iterate through [a,b] := interval in order of increasing b:  
