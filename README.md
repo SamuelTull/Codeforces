@@ -15,9 +15,9 @@ Estimate the largest possible value, eg if counting sum of 10^5 values in range 
 Count number of intervals entirely within another interval: that is to count the number of pairs of intervals [a1,b1], [a2,b2] such that a1 < a2 < b2 < b1. 
 ```
 Initialise list A = [], int ans = 0   
-Iterate through [a,b] := interval in order of increasing b:  
+Iterate through [a,b] := interval in order of increasing b, count inversions:  
 (1) ans += num(i in A st A[i]>a)  
-(2) add a to A   
+(2) add a to A    
 ``` 
 The initial sort is O(nlogn). Keep A ordered to allow (1) in log(n) using binary search.  However I could not find O(nlogn) solution:  
 Python: 
