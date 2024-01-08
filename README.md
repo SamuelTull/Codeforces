@@ -6,7 +6,7 @@ Attempting contests and past problems to get better at coding. Initially in Pyth
 ### Round 918 (1915F)  
 Count number of intervals entirely within another interval: that is to count the number of pairs of intervals [a1,b1], [a2,b2] such that a1 < a2 < b2 < b1. 
 ```
-Initialise list A = []  
+Initialise list A = [], int ans = 0   
 Iterate through [a,b] := interval in order of increasing b:  
 (1) ans += num(i in A st A[i]>a)  
 (2) add a to A   
@@ -22,8 +22,8 @@ although bisect is O(logn), insert is O(n).
 C++: 
 ```
 set<int> seen;  
-ans += distance(seen.upper_bound(a), seen.end());  
 seen.insert(a);
+ans += distance(seen.upper_bound(a), seen.end());  
 ```
 Although set is sorted, with O(1) insert, and O(logn) upper_bound, distance iterates from x to y, so is O(n).  
 Both cases have O(n^2) solutions.  
@@ -40,8 +40,9 @@ typedef __gnu_pbds::tree<
     __gnu_pbds::rb_tree_tag,  
     __gnu_pbds::tree_order_statistics_node_update>  
     ordered_set;  
-// s.order_of_key(a);  // returns index of a, if a was added.   
-// s.find_by_order(n);  // returns s[n]. 
+// s.order_of_key(a);  // returns index of a (not necessarily in list).  
+// s.find_by_order(n);  // returns s[n] (value at position n, according to ordering).  
+// s.insert(a); // add a to set s.   
 ```
   
 
