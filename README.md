@@ -1,9 +1,17 @@
 # Codeforces
 Attempting contests and past problems to get better at coding. Initially in Python, C++, plan to incorporate C#
+## C++ Tips 
+
+### Initialising  
+When you declare an instance of a class (e.g. ```set s;```), the class's default constructor is called. However when initialise a variable without initialising (e.g. ```int ans;```), it contains a "garbage value". This value could be anything and is generally not predictable. So we need ```int ans = 0;``` but do not require the same for classes. 
+
+### Integer overflow
+int ~ (-10^9 to +10^9).  
+long long ~ (-10^18 to +10^18).  
+Estimate the largest possible value, eg if counting sum of 10^5 values in range [0,10^8] the sum could be up to 10^13, requiring long long.  
 
 ## Lessons Learnt 
-
-### Round 918 (1915F)  
+### Round 918 (1915F)-  Ordered_set 
 Count number of intervals entirely within another interval: that is to count the number of pairs of intervals [a1,b1], [a2,b2] such that a1 < a2 < b2 < b1. 
 ```
 Initialise list A = [], int ans = 0   
@@ -45,12 +53,6 @@ typedef __gnu_pbds::tree<
 // s.insert(a); // add a to set s.   
 ```
   
-
-### C++
-Care for integer overflow:    
-int ~ (10^9 to +10^9).  
-long long ~ (—10^18 to +10^18).  
-Estimate largest possible value, eg if counting sum of 10^5 values in range [0,10^8] the sum could be up to 10^13, requiring long long.  
 
 
 ### Round 918
