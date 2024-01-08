@@ -40,14 +40,17 @@ typedef __gnu_pbds::tree<
     __gnu_pbds::rb_tree_tag,  
     __gnu_pbds::tree_order_statistics_node_update>  
     ordered_set;  
-// s.order_of_key(a);  // position that a would have if added to set 
-// s.find_by_order(a);  // index of n 
+// s.order_of_key(a);  // returns index of a, if a was added.   
+// s.find_by_order(n);  // returns s[n]. 
 ```
   
 
 ### C++
-Care for integer overflow, even if all numbers are well within limits, sums of subsets can overflow so use long long.  
-Weird bug where nothing is cout when a vector is initialised.  
+Care for integer overflow:    
+int ~ (10^9 to +10^9).  
+long long ~ (—10^18 to +10^18).  
+Estimate largest possible value, eg if counting sum of 10^5 values in range [0,10^8] the sum could be up to 10^13, requiring long long.  
+
 
 ### Round 918
 Storing prefixes, TLE error when ^random_seed removed. Sets are implemented as hash tables. If two elements have the same hash value, Python needs to check if they are actually the same element, which takes extra time. ^random_seed effectively randomizing the hash values of the prefix sums. This makes it less likely that two different prefix sums will have the same hash value, which can speed up the operation of adding an element to the set and checking if an element is in the set.
