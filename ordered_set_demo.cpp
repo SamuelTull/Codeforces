@@ -9,7 +9,8 @@ using ordered_set_le = __gnu_pbds::tree<int, __gnu_pbds::null_type, less_equal<i
 
 int main()
 {
-    cout << "Careful: order_of_key(a) effectively does order_of_key(a-0.5)\n"; ordered_set s;
+    cout << "Careful: order_of_key(a) effectively does order_of_key(a-0.5)\n";
+    ordered_set s;
     s.insert(1);
     s.insert(3);
     s.insert(4);
@@ -32,7 +33,6 @@ int main()
     cout << "nums > 2: " << s1.order_of_key(2) << "\n";
     cout << "nums > 3: " << s1.order_of_key(2) << "\n";
     cout << "nums > 10: " << s1.order_of_key(10) << "\n";
-    // find_by_order returns an iterator, so dereference it to get the value
     cout << "0th: " << *s1.find_by_order(0) << "\n";
     cout << "1st: " << *s1.find_by_order(1) << "\n";
     cout << "2nd: " << *s1.find_by_order(2) << "\n\n\n";
