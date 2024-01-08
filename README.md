@@ -1,26 +1,35 @@
 # Codeforces
-Attempting contests and past problems to get better at coding. Initially in Python, plan to incorporate C++ and C#
+Attempting contests and past problems to get better at coding. Initially in Python, C++, plan to incorporate C#
 
 ## Lessons Learnt 
 
 ### Round 918 (1915F)  
-Count number of intervals entirely within another interval: #[a1,b1], [a2,b2] s.t. a1<a2 < b2 < a1.  
-Iterate through pairs in order of increasing b:
-        1. find number of as already in list that are bigger than current a.    
-        2. add a to list.   
-Could not find O(nlogn) solution:  
-        Python  
-            idx = bisect.bisect_left(seen, a)  
-            seen.insert(idx, a)  
-            ans += len(seen) - idx.  
-        although bisect is O(logn), insert is O(n).  
-        C++  
-        set<int> seen;  
-        ans += distance(seen.upper_bound(a), seen.end());  
-        seen.insert(a);  
-        Although set is sorted, with O(1) insert, and O(logn) upper_bound, distance iterates from x to y, so is O(n).  
+Count number of intervals entirely within another interval: number of pairs of intervals [a1,b1], [a2,b2] such that a1 < a2 < b2 < a1. 
+```
+Initialise list A = []  
+Iterate through [a,b] := interval in order of increasing b:  
+(1) ans += num(i in A st A[i]>a)  
+(2) add a to A   
+``` 
+The initial sort is O(nlogn). Keep A ordered to allow (1) in log(n) using binary search.  However I could not find O(nlogn) solution:  
+Python: 
+```
+idx = bisect.bisect_left(seen, a)  
+seen.insert(idx, a)  
+ans += len(seen) - idx.
+```
+although bisect is O(logn), insert is O(n).  
+C++: 
+```
+set<int> seen;  
+ans += distance(seen.upper_bound(a), seen.end());  
+seen.insert(a);
+```
+Although set is sorted, with O(1) insert, and O(logn) upper_bound, distance iterates from x to y, so is O(n).  
 Both cases have O(n^2) solutions.  
-Eventually found:  
+
+Eventually I found ordered_set, which is O(1) insert and O(logn) order_of_key, hence giving desired O(nlogn) solution.
+```
 #include <ext/pb_ds/assoc_container.hpp>  
 #include <ext/pb_ds/tree_policy.hpp>  
 using namespace std;  
@@ -31,9 +40,10 @@ typedef __gnu_pbds::tree<
     __gnu_pbds::rb_tree_tag,  
     __gnu_pbds::tree_order_statistics_node_update>  
     ordered_set;  
-// s.order_of_key(a);  
-// s.find_by_order(n);  
-which is O(1) insert and O(logn) order_of_key, hence giving desired O(nlogn) solution.  
+// s.order_of_key(a);  // position that a would have if added to set 
+// s.find_by_order(a);  // index of n 
+```
+  
 
 ### C++
 Care for integer overflow, even if all numbers are well within limits, sums of subsets can overflow so use long long.  
