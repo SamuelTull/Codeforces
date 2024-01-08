@@ -1,10 +1,8 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
+#include <bits/stdc++.h>
+using namespace std;
 
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
-using namespace std;
 typedef __gnu_pbds::tree<
     int,
     __gnu_pbds::null_type,
