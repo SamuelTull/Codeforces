@@ -2,6 +2,9 @@
 Attempting contests and past problems to get better at coding. Initially in Python, C++, plan to incorporate C#
 ## C++ Tips 
 
+### Modulus % 
+The modulus operator % does not work as expected with negative numbers. It does not return the remainder of the division, but the signed remainder, which can be negative. To ensure that the result is always positive, add N before taking the modulus.  
+
 ### Initialising  
 When you declare an instance of a class (e.g. ```set s;```), the class's default constructor is called. However when initialise a variable without initialising (e.g. ```int ans;```), it contains a "garbage value". This value could be anything and is generally not predictable. So we need ```int ans = 0;``` but do not require the same for classes. 
 
