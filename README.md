@@ -2,6 +2,9 @@
 Attempting contests and past problems to get better at coding. Initially in Python, C++, plan to incorporate C#
 ## C++ Tips 
 
+## References
+In 1896D was getting TLE. Was creating a new set every function call as was not using &.  
+
 ## Priority Queue  
 For shortest path, use ```priority_queue<tuple<ll, int, int>, vector<tuple<ll, int, int>>, greater<tuple<ll, int, int>>> Q;```.  The arguments are Type, ContainerType and the Compare, Less is used by default, but greater ensures the smallest is on the top of the heap.
 
@@ -76,7 +79,12 @@ C = [0] * 26 and iterating over string is faster than Counter.
 If x is true -> x1 > x is also true then use binary search.  
 
 ### Educational 159 
-os for read/write saves >1s.  
-Rolling hash for prefixes.  
+Used rolling hash to avoid the creation of substrings.  
+```hash = 0  
+for s in S:  
+    hash = hash * BASE + s  ``` 
+```BASE``` match number of characters, for lowercase letters use ```27``` and ```s = ord(s) - ord(a) + 1``` (otherwise ```""``` = ```"a"``` = ```"aaa"```). Random ```BASE``` to avoid hacks.  
+
+```MOD``` used to stop getting too large. Picked as big prime to reduce chance of hash collisions. Common: ```10^9+7``` and ```10^9+9``` with ```HASH = HASH1 * MOD2 + HASH2 ```.  The hashes take values [0, MOD). Birthday paradox says need around sqrt(MOD) values for 50/50 chance of collision. 
 
 
