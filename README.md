@@ -84,9 +84,11 @@ If x is true -> x1 > x is also true then use binary search.
 
 ### Educational 159 
 Used rolling hash to avoid the creation of substrings.  
-```hash = 0  
+```
+hash = 0  
 for s in S:  
-    hash = hash * BASE + s  ``` 
+    hash = hash * BASE + s
+```
 ```BASE``` match number of characters, for lowercase letters use ```27``` and ```s = ord(s) - ord(a) + 1``` (otherwise ```""``` = ```"a"``` = ```"aaa"```). Random ```BASE``` to avoid hacks.  
 
 ```MOD``` used to stop getting too large. Picked as big prime to reduce chance of hash collisions. Common: ```10^9+7``` and ```10^9+9``` with ```HASH = HASH1 * MOD2 + HASH2 ```.  The hashes take values [0, MOD). Birthday paradox says need around sqrt(MOD) values for 50/50 chance of collision. 
