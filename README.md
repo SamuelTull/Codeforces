@@ -2,6 +2,9 @@
 Attempting contests and past problems to get better at coding. Initially in Python, C++, plan to incorporate C#
 ## C++ Tips 
 
+## Priority Queue  
+For shortest path, use ```priority_queue<tuple<ll, int, int>, vector<tuple<ll, int, int>>, greater<tuple<ll, int, int>>> Q;```.  The arguments are Type, ContainerType and the Compare, Less is used by default, but greater ensures the smallest is on the top of the heap.
+
 ### Modulus % 
 The modulus operator % does not work as expected with negative numbers. It does not return the remainder of the division, but the signed remainder, which can be negative. To ensure that the result is always positive, add N before taking the modulus.  
 
