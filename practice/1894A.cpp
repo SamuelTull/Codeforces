@@ -3,18 +3,13 @@ using namespace std;
 
 #define int long long
 
-// const int INF = 1e9;
-const int INF = 1e18;
-
 void solve()
 {
     int n;
     cin >> n;
-    vector<int> nums(n);
-    for (int i = 0; i < n; i++)
-    {
-        cin >> nums[i];
-    }
+    string s;
+    cin >> s;
+    cout << s.back() << endl;
 }
 
 signed main()
