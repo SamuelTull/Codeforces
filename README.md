@@ -4,7 +4,7 @@ Times using int instead of long long gave wrong answer 4.
 ## C++ Tips 
 
 ## Order of Operations
-```(a==b==c)``` is NOT as expected. Is checking ```(a==b==c)```. Use ```(a == b && b == c)```.  
+```a==b==c``` is NOT as expected. Is checking ```(a==b)==c```. Use ```a == b && b == c```.  
 
 ## Priority Queue  
 For shortest path, use ```priority_queue<tuple<ll, int, int>, vector<tuple<ll, int, int>>, greater<tuple<ll, int, int>>> Q;```.  The arguments are Type, ContainerType and the Compare, Less is used by default, but greater ensures the smallest is on the top of the heap. Use std::vector(n,llinf) rather than map if we know all the states, huge speed up due to faster access time O(1) vs O(log n).  
