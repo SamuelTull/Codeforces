@@ -4,7 +4,7 @@ Times using int instead of long long gave wrong answer 4.
 ## C++ Tips 
 
 ### References
-In 1896D was getting TLE. Was creating a new set every function call as was not using &.  
+In 1896D was getting TLE. Was creating a new set every function call as was not using ```&```.  
 
 ### Order of Operations
 ```a==b==c``` is NOT as expected. Is checking ```(a==b)==c```. Use ```a == b && b == c```.  
