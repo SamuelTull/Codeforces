@@ -31,6 +31,10 @@ long long ~ (-10^18 to +10^18).
 Estimate the largest possible value, eg if counting sum of 10^5 values in range [0,10^8] the sum could be up to 10^13, requiring long long.  
 
 ## Lessons Learnt 
+
+### Grid Rotation 
+Square grid, NxN: S[i][j];S[j][n - i - 1]; S[n - i - 1][n - j - 1]; S[n - j - 1][i];  
+
 ### Round 918 (1915F)-  Ordered_set 
 Count number of intervals entirely within another interval: that is to count the number of pairs of intervals [a1,b1], [a2,b2] such that a1 < a2 < b2 < b1. 
 ```
