@@ -12,6 +12,8 @@ In 1896D was getting TLE. Was creating a new set every function call as was not 
 ### Priority Queue  
 For shortest path, use ```priority_queue<tuple<ll, int, int>, vector<tuple<ll, int, int>>, greater<tuple<ll, int, int>>> Q;```.  The arguments are Type, ContainerType and the Compare, Less is used by default, but greater ensures the smallest is on the top of the heap. Use std::vector(n,llinf) rather than map if we know all the states, huge speed up due to faster access time O(1) vs O(log n).  
 
+### Ordered Set
+```__gnu_pbds```-based ```ordered_set```, for when we need to frequently find the index of a value. O(log n) ```insert```/```erase``` (same as ```std::set```), but also O(log n) ```.order_of_key``` and ```find_by_order```. Worst case - O(n) for ```std::set``` as must iterate from ```upper_bound``` to end.   
 ### Modulus % 
 The modulus operator % does not work as expected with negative numbers. It does not return the remainder of the division, but the signed remainder, which can be negative. To ensure that the result is always positive, add N before taking the modulus.  
 
@@ -46,7 +48,7 @@ set<int> seen;
 seen.insert(a);
 ans += distance(seen.upper_bound(a), seen.end());  
 ```
-Although set is sorted, with O(1) insert, and O(logn) upper_bound, distance iterates from x to y, so is O(n).  
+Although set is sorted, with O(log n), and O(logn) upper_bound, distance iterates from x to y, so is O(n).  
 Both cases have O(n^2) solutions.  
 
 Eventually I found ordered_set, which is O(1) insert and O(logn) order_of_key, hence giving desired O(nlogn) solution.
