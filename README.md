@@ -2,6 +2,11 @@
 Attempting contests and past problems to get better at coding. Initially in Python, C++, plan to incorporate C#.  
 Times using int instead of long long gave wrong answer 4. 
 ## C++ Tips 
+### Bit operations
+Is ```nums[l]&nums[l+1]&...&nums[r]>n```?, do each bit separately, calc prefix sum, and add up the bits where pref[b]-pref[a-1] = b - a + 1.  
+
+### SEEN
+vector<bool> seen(n), performs better than set<int> seen, unless n is huge and sparse.  
 
 ### References
 In 1896D was getting TLE. Was creating a new set every function call as was not using ```&```.  
