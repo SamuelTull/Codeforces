@@ -65,6 +65,7 @@ typedef __gnu_pbds::tree<
 // s.find_by_order(n);  // returns s[n] (value at position n, according to ordering).  
 // s.insert(a); // add a to set s.   
 ```
+Can use less_equal for multiset - but acts weird and cannot use .erase().  
   
 
 
