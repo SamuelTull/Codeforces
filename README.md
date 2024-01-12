@@ -32,6 +32,9 @@ Estimate the largest possible value, eg if counting sum of 10^5 values in range 
 
 ## Lessons Learnt 
 
+## O-1 Knapsack
+Iterate over items i,w, over max capacity m, dp[i][m] = dp[i-1][m] || dp[i-1][m-w]. 
+
 ### Grid Rotation 
 Square grid, NxN: S[i][j];S[j][n - i - 1]; S[n - i - 1][n - j - 1]; S[n - j - 1][i];  
 
