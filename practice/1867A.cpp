@@ -9,9 +9,22 @@ void solve()
 {
     int n;
     cin >> n;
-    vector<int> a(n);
+    vector<pair<int, int>> a(n), b(n);
     for (int i = 0; i < n; i++)
-        cin >> a[i];
+    {
+        cin >> a[i].first;
+        a[i].second = i;
+    }
+    sort(begin(a), end(a), greater<pair<int, int>>());
+    for (int i = 0; i < n; i++)
+    {
+        b[i] = {a[i].second, i + 1};
+    }
+    sort(begin(b), end(b));
+    for (int i = 0; i < n; i++)
+    {
+        cout << b[i].second << " ";
+    }
 }
 
 signed main()
@@ -24,6 +37,7 @@ signed main()
     while (t--)
     {
         solve();
+        cout << endl;
     }
 
     return 0;

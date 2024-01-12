@@ -7,11 +7,28 @@ const int INF = 1e18;
 
 void solve()
 {
-    int n;
+    int n, m = INF, mi;
     cin >> n;
-    vector<int> a(n);
+    vector<int> nums(n);
     for (int i = 0; i < n; i++)
-        cin >> a[i];
+    {
+        cin >> nums[i];
+        if (nums[i] < m)
+        {
+            m = nums[i];
+            mi = i;
+        }
+    }
+    int ans = 1;
+    for (int i = 0; i < n; i++)
+    {
+        if (i == mi)
+            ans *= nums[i] + 1;
+        else
+            ans *= nums[i];
+    }
+
+    cout << ans << endl;
 }
 
 signed main()

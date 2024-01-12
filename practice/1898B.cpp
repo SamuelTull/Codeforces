@@ -12,6 +12,19 @@ void solve()
     vector<int> a(n);
     for (int i = 0; i < n; i++)
         cin >> a[i];
+
+    int ans = 0;
+    for (int i = n - 2; i >= 0; i--)
+    {
+        if (a[i] < a[i + 1])
+            continue;
+        // ceil = (a + b - 1) / b
+        int nums = (a[i] + a[i + 1] - 1) / a[i + 1];
+        ans += nums - 1;
+        a[i] = a[i] / nums;
+    }
+
+    cout << ans << endl;
 }
 
 signed main()

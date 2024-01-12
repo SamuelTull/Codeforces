@@ -6,7 +6,7 @@ using namespace std;
 using ordered_set = __gnu_pbds::tree<int, __gnu_pbds::null_type, less<int>, __gnu_pbds::rb_tree_tag, __gnu_pbds::tree_order_statistics_node_update>;          // order_of_key(a);find_by_order(n) // greater<int> for descending order
 using ordered_set_g = __gnu_pbds::tree<int, __gnu_pbds::null_type, greater<int>, __gnu_pbds::rb_tree_tag, __gnu_pbds::tree_order_statistics_node_update>;     // order_of_key(a);find_by_order(n) // greater<int> for descending order
 using ordered_set_le = __gnu_pbds::tree<int, __gnu_pbds::null_type, less_equal<int>, __gnu_pbds::rb_tree_tag, __gnu_pbds::tree_order_statistics_node_update>; // order_of_key(a);find_by_order(n) // greater<int> for descending order
-
+//! If we use less_equal we cant use .erase() function
 int main()
 {
     cout << "Careful: order_of_key(a) effectively does order_of_key(a-0.5)\n\n";

@@ -7,11 +7,16 @@ const int INF = 1e18;
 
 void solve()
 {
-    int n;
+    int n, b = 0, a;
     cin >> n;
-    vector<int> a(n);
     for (int i = 0; i < n; i++)
-        cin >> a[i];
+    {
+        cin >> a;
+        b++;
+        if (a == b)
+            b++;
+    }
+    cout << b << endl;
 }
 
 signed main()

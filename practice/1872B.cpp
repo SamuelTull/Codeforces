@@ -7,11 +7,14 @@ const int INF = 1e18;
 
 void solve()
 {
-    int n;
+    int n, d, s, ans = INF;
     cin >> n;
-    vector<int> a(n);
-    for (int i = 0; i < n; i++)
-        cin >> a[i];
+    while (n--)
+    {
+        cin >> d >> s;
+        ans = min(ans, d + (s - 1) / 2);
+    }
+    cout << ans << endl;
 }
 
 signed main()

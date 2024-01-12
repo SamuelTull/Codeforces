@@ -7,11 +7,19 @@ const int INF = 1e18;
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vector<int> a(n);
+    int n, k, ans = 0;
+    cin >> n >> k;
+    string s;
+    cin >> s;
     for (int i = 0; i < n; i++)
-        cin >> a[i];
+    {
+        if (s[i] == 'B')
+        {
+            ans += 1;
+            i += k - 1;
+        }
+    }
+    cout << ans << endl;
 }
 
 signed main()

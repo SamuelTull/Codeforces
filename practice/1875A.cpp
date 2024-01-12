@@ -7,11 +7,16 @@ const int INF = 1e18;
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vector<int> a(n);
+    int a, b, n, num;
+    cin >> a >> b >> n;
+    int ans = b;
     for (int i = 0; i < n; i++)
-        cin >> a[i];
+    {
+        cin >> num;
+        ans += min(a - 1, num);
+    }
+    
+        cout << ans << endl;
 }
 
 signed main()

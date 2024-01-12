@@ -7,11 +7,15 @@ const int INF = 1e18;
 
 void solve()
 {
-    int n;
+    int n, num, ans = 0, prev = 1;
     cin >> n;
-    vector<int> a(n);
     for (int i = 0; i < n; i++)
-        cin >> a[i];
+    {
+        cin >> num;
+        ans += max(0LL, num - prev);
+        prev = num;
+    }
+    cout << ans << endl;
 }
 
 signed main()

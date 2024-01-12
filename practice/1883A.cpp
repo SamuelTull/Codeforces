@@ -7,11 +7,17 @@ const int INF = 1e18;
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vector<int> a(n);
-    for (int i = 0; i < n; i++)
-        cin >> a[i];
+    string s, nums = "1234567890";
+    cin >> s;
+    int curr = 0;
+    int i = 0, ans = 4, next;
+    for (int i = 0; i < 4; i++)
+    {
+        next = nums.find(s[i]);
+        ans += abs(next - curr);
+        curr = next;
+    }
+    cout << ans << endl;
 }
 
 signed main()

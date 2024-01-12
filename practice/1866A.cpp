@@ -7,11 +7,15 @@ const int INF = 1e18;
 
 void solve()
 {
-    int n;
+    int n, ans = INF, num;
     cin >> n;
-    vector<int> a(n);
     for (int i = 0; i < n; i++)
-        cin >> a[i];
+    {
+        cin >> num;
+        ans = min(ans, abs(num));
+    }
+
+    cout << ans << endl;
 }
 
 signed main()
@@ -20,7 +24,6 @@ signed main()
     cin.tie(NULL);
     cout.tie(NULL);
     int t = 1;
-    cin >> t;
     while (t--)
     {
         solve();

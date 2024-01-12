@@ -5,13 +5,18 @@ using namespace std;
 // const int INF = 1e9;
 const int INF = 1e18;
 
-void solve()
+int solve()
 {
-    int n;
-    cin >> n;
-    vector<int> a(n);
-    for (int i = 0; i < n; i++)
-        cin >> a[i];
+    int n, k, x;
+    cin >> n >> k >> x;
+    if (k > n)
+        return -1;
+    int ans = k * (k - 1) / 2;
+    if (x < k - 1)
+        return -1;
+    if (x <= k)
+        return ans + (k - 1) * (n - k);
+    return ans + x * (n - k);
 }
 
 signed main()
@@ -23,7 +28,7 @@ signed main()
     cin >> t;
     while (t--)
     {
-        solve();
+        cout << solve() << endl;
     }
 
     return 0;
