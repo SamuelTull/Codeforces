@@ -1,21 +1,24 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define int long long
-const int INF = 1e18;
-// const int INF = 1e9;
 
-// clang-format off
-#define dbv(x) cout << (#x) << ": " << x << "\n";
-#define dbc(x) cout << (#x) << ": "; for (auto i : x) cout << i << " "; cout << "\n";
-// clang-format on
+#define int long long
+// const int INF = 1e9;
+const int INF = 1e18;
 
 void solve()
 {
-    int n;
+    int n, FP = 0, FN = 0; // false positive, false negative
+    string s, t;
     cin >> n;
-    vector<int> a(n);
+    cin >> s >> t;
     for (int i = 0; i < n; i++)
-        cin >> a[i];
+    {
+        if (s[i] == '1' && t[i] == '0')
+            FP++;
+        else if (s[i] == '0' && t[i] == '1')
+            FN++;
+    }
+    cout << max(FP, FN) << "\n";
 }
 
 signed main()
@@ -26,8 +29,11 @@ signed main()
     int t = 1;
     cin >> t;
     while (t--)
+    {
+        solve();
         // cout << solve() << "\n";
         // cout << (solve() ? "YES" : "NO") << "\n";
-        solve();
+    }
+
     return 0;
 }

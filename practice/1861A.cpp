@@ -9,13 +9,18 @@ const int INF = 1e18;
 #define dbc(x) cout << (#x) << ": "; for (auto i : x) cout << i << " "; cout << "\n";
 // clang-format on
 
-void solve()
+string solve()
 {
-    int n;
-    cin >> n;
-    vector<int> a(n);
-    for (int i = 0; i < n; i++)
-        cin >> a[i];
+    string s;
+    cin >> s;
+    for (int i = 0; i < 10; i++)
+    {
+        if (s[i] == '1')
+            return "13";
+        else if (s[i] == '3')
+            return "31";
+    }
+    return "-1";
 }
 
 signed main()
@@ -26,8 +31,6 @@ signed main()
     int t = 1;
     cin >> t;
     while (t--)
-        // cout << solve() << "\n";
-        // cout << (solve() ? "YES" : "NO") << "\n";
-        solve();
+        cout << solve() << "\n";
     return 0;
 }

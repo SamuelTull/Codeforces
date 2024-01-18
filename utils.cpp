@@ -11,3 +11,26 @@ using ordered_set = __gnu_pbds::tree<int, __gnu_pbds::null_type, less<int>, __gn
 
 // priority_queue
 priority_queue<tuple<int, int, int>, vector<tuple<int, int, int>>, greater<tuple<int, int, int>>> Q;
+
+
+//primes
+vector<int> sieveOfEratosthenes(int N)
+{
+    vector<bool> prime(N + 1, true);
+    prime[0] = prime[1] = false;
+    for (int p = 2; p * p <= N; p++)
+    {
+        if (prime[p] == true)
+        {
+            for (int i = p * p; i <= N; i += p)
+                prime[i] = false;
+        }
+    }
+
+    vector<int> primes;
+    for (int p = 2; p <= N; p++)
+        if (prime[p])
+            primes.push_back(p);
+
+    return primes;
+}

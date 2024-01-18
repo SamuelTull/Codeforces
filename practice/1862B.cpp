@@ -11,11 +11,21 @@ const int INF = 1e18;
 
 void solve()
 {
-    int n;
+    int n, m = INF;
     cin >> n;
     vector<int> a(n);
     for (int i = 0; i < n; i++)
+    {
         cin >> a[i];
+        m = min(m, a[i]);
+    }
+    cout << n + (n - 1) << "\n";
+    cout << a[0] << " ";
+    for (int i = 1; i < n; i++)
+    {
+        cout << m - 1 << " " << a[i] << " ";
+    }
+    cout << "\n";
 }
 
 signed main()
@@ -26,8 +36,6 @@ signed main()
     int t = 1;
     cin >> t;
     while (t--)
-        // cout << solve() << "\n";
-        // cout << (solve() ? "YES" : "NO") << "\n";
         solve();
     return 0;
 }
