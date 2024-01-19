@@ -6,38 +6,58 @@ using namespace std;
 #define int long long
 // const int INF = 1e9;
 
+template <typename T, int MOD>
+class ModVector : public std::vector<T>
+{
+public:
+    ModVector(size_t size = 0) : std::vector<T>(size) {}
+
+    void push_back(const T &value)
+    {
+        std::vector<T>::push_back(value % MOD);
+    }
+    T &operator[](size_t i)
+    {
+        return std::vector<T>::operator[](i) %= MOD;
+    }
+    const T &operator[](size_t i) const
+    {
+        return std::vector<T>::operator[](i) %= MOD;
+    }
+};
+
 // a:    1 2 3 4
 // diff:  1 1 1
 // l = 1, they mean 0,
 // r = 3 they mean 2
 
-void query1(vector<int> &diff, set<int> &p, set<int> &p1, int &n)
+void query1(ModVector<int, 26> &diff, set<int> &p, set<int> &p1, int &n)
 {
     int l, r, x;
     cin >> l >> r >> x;
     l--, r--;
     if (l > 0)
     {
-        diff[l - 1] = (diff[l - 1] + x) % 26;
+        diff[l - 1] = (diff[l - 1] + x);
     }
 
     if (r < n - 1)
     {
-        diff[r] = (diff[r] - x + 26) % 26;
+        diff[r] = (diff[r] - x + 26);
     }
     if (l > 0)
     {
-        if ((diff[l - 1]) % 26 == 0)
+        if ((diff[l - 1]) == 0)
             p.insert(l - 1);
         else
             p.erase(l - 1);
 
-        if ((diff[l - 1] + diff[l]) % 26 == 0)
+        if ((diff[l - 1] + diff[l]) == 0)
             p1.insert(l - 1);
         else
             p1.erase(l - 1);
         if (l > 1)
-            if ((diff[l - 2] + diff[l - 1]) % 26 == 0)
+            if ((diff[l - 2] + diff[l - 1]) == 0)
                 p1.insert(l - 2);
             else
                 p1.erase(l - 2);
@@ -45,17 +65,17 @@ void query1(vector<int> &diff, set<int> &p, set<int> &p1, int &n)
 
     if (r < n - 1)
     {
-        if ((diff[r]) % 26 == 0)
+        if ((diff[r]) == 0)
             p.insert(r);
         else
             p.erase(r);
         if (r < n - 2)
-            if ((diff[r] + diff[r + 1]) % 26 == 0)
+            if ((diff[r] + diff[r + 1]) == 0)
                 p1.insert(r);
             else
                 p1.erase(r);
         if (r > 0)
-            if ((diff[r - 1] + diff[r]) % 26 == 0)
+            if ((diff[r - 1] + diff[r]) == 0)
                 p1.insert(r - 1);
             else
                 p1.erase(r - 1);
@@ -85,18 +105,19 @@ void solve()
     int n, q, op;
     string s;
     cin >> n >> q >> s;
-    vector<int> a(n), diff(n - 1);
+    vector<int> a(n);
+    ModVector<int, 26> diff(n - 1);
     for (int i = 0; i < n; i++)
         a[i] = (s[i] - 'a');
     for (int i = 0; i < n - 1; i++)
-        diff[i] = (a[i + 1] - a[i] + 26) % 26;
+        diff[i] = (a[i + 1] - a[i] + 26);
 
     set<int> p, p1;
     for (int i = 0; i < n - 1; i++)
         if (diff[i] == 0)
             p.insert(i);
     for (int i = 0; i < n - 2; i++)
-        if ((diff[i] + diff[i + 1]) % 26 == 0)
+        if ((diff[i] + diff[i + 1]) == 0)
             p1.insert(i);
     // print(diff);
     // print(p);

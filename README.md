@@ -2,6 +2,9 @@
 Attempting contests and past problems to get better at coding. Initially in Python, C++, plan to incorporate C#.  
 Times using int instead of long long gave wrong answer 4. 
 ## C++ Tips 
+### Difference Array
+Have an array and doing a lot of changing ranges of numbers, consider creating d = [a1-a0, a2-a1] etc. Only need to update the start and end of the range in that case.  
+
 ### Bit operations
 Is ```nums[l]&nums[l+1]&...&nums[r]>n```?, do each bit separately, calc prefix sum, and add up the bits where pref[b]-pref[a-1] = b - a + 1.  
 
