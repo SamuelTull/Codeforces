@@ -5,6 +5,8 @@ Times using int instead of long long gave wrong answer 4.
 ### Difference Array
 Have an array and doing a lot of changing ranges of numbers, consider creating d = [a1-a0, a2-a1] etc. Only need to update the start and end of the range in that case.  
 
+### O(n) vs O(N^2) DP (187D)  
+We needed to count the number of intervals with odd sum (number of L<=R sum(a[L:R]))%2==1). Instead of iterating through L and R (optimised with prefix sum so O(N^2) not O(N^3), we keep a track the total sum and the number of intervals that made the sum even/odd. If the sum is now odd, the number of L is cnt_even, else cnt_odd. Remember to initialise cnt = {1,0} as 0 is even.  
 ### Bit operations
 Is ```nums[l]&nums[l+1]&...&nums[r]>n```?, do each bit separately, calc prefix sum, and add up the bits where pref[b]-pref[a-1] = b - a + 1.  
 
