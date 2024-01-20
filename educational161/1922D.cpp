@@ -21,9 +21,9 @@ void solve()
         monsters.push_back({a[i], d[i], i - 1, i + 1});
     monsters[n - 1][3] = -1;
 
-    set<int> tocheck, died;
+    vector<int> tocheck, died;
     for (int i = 0; i < n; i++)
-        tocheck.insert(i);
+        tocheck.push_back(i);
 
     while (n--)
     {

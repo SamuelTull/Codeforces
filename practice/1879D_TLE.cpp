@@ -4,7 +4,6 @@
 #include <ext/pb_ds/tree_policy.hpp>
 using namespace std;
 #define int long long
-const int MOD = 998244353;
 const int INF = 1e18;
 // const int INF = 1e9;
 #define dbg(x)cout<<(#x)<<": [";for(auto i=x.begin();i!=x.end();++i)cout<<*i<<(next(i)!=x.end()?", ":"");cout<<"]\n"; // container 
@@ -19,13 +18,47 @@ vector<pair<char,int>>getStreaks(string s){return getStreaks(vector<char>(s.begi
 using ordered_set = __gnu_pbds::tree<int, __gnu_pbds::null_type, less<int>, __gnu_pbds::rb_tree_tag, __gnu_pbds::tree_order_statistics_node_update>; // order_of_key(a);find_by_order(n)
 // clang-format on
 
-void solve()
+const int MOD = 998244353;
+const int nbits = 32;
+
+int f(int l, int r, vector<array<int, nbits>> &pref)
+{
+    int ans = 0;
+    for (int i = 0; i < nbits; i++)
+        if ((pref[r + 1][i] - pref[l][i]) % 2 == 1)
+            ans += (1 << i);
+    return ans % MOD;
+}
+
+int fslow(int l, int r, vector<int> &a)
+{
+    int ans = a[l];
+    for (int i = l + 1; i <= r; i++)
+        ans = ans ^ a[i];
+    return ans;
+}
+
+int solve()
 {
     int n, num;
     cin >> n;
+    int ans = 0;
     vector<int> a(n);
+    vector<bitset<nbits>> b(n);
     for (int i = 0; i < n; i++)
-        {cin >> a[i];}
+    {
+        cin >> a[i];
+        b[i] = bitset<nbits>(a[i]);
+    }
+    vector<array<int, nbits>> pref(n + 1);
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < nbits; j++)
+            pref[i + 1][j] = pref[i][j] + b[i][j];
+    for (int l = 0; l < n; l++)
+        for (int r = l; r < n; r++)
+
+            ans = (ans + f(l, r, pref) * (r - l + 1)) % MOD;
+    return ans % MOD;
 }
 
 signed main()
@@ -33,11 +66,5 @@ signed main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
-    int t = 1;
-    cin >> t;
-    while (t--)
-        solve();
-    // cout << solve() << "\n";
-    // cout << (solve() ? "YES" : "NO") << "\n";
-    return 0;
+    cout << solve() << "\n";
 }
