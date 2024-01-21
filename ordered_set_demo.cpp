@@ -3,10 +3,14 @@ using namespace std;
 
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
-using ordered_set = __gnu_pbds::tree<int, __gnu_pbds::null_type, less<int>, __gnu_pbds::rb_tree_tag, __gnu_pbds::tree_order_statistics_node_update>;          // order_of_key(a);find_by_order(n) // greater<int> for descending order
-using ordered_set_g = __gnu_pbds::tree<int, __gnu_pbds::null_type, greater<int>, __gnu_pbds::rb_tree_tag, __gnu_pbds::tree_order_statistics_node_update>;     // order_of_key(a);find_by_order(n) // greater<int> for descending order
+using ordered_set = __gnu_pbds::tree<int, __gnu_pbds::null_type, less<int>, __gnu_pbds::rb_tree_tag, __gnu_pbds::tree_order_statistics_node_update>;      // order_of_key(a);find_by_order(n) // greater<int> for descending order
+using ordered_set_g = __gnu_pbds::tree<int, __gnu_pbds::null_type, greater<int>, __gnu_pbds::rb_tree_tag, __gnu_pbds::tree_order_statistics_node_update>; // order_of_key(a);find_by_order(n) // greater<int> for descending order
+using ordered_set_pair = __gnu_pbds::tree<pair<int, int>, __gnu_pbds::null_type, less<pair<int, int>>, __gnu_pbds::rb_tree_tag, __gnu_pbds::tree_order_statistics_node_update>;
+
 using ordered_set_le = __gnu_pbds::tree<int, __gnu_pbds::null_type, less_equal<int>, __gnu_pbds::rb_tree_tag, __gnu_pbds::tree_order_statistics_node_update>; // order_of_key(a);find_by_order(n) // greater<int> for descending order
 //! If we use less_equal we cant use .erase() function
+//! If we want multiset, use pair<int,int> (perhaps index) as key
+
 int main()
 {
     cout << "Careful: order_of_key(a) effectively does order_of_key(a-0.5)\n\n";
