@@ -2,9 +2,14 @@
 Attempting contests and past problems to get better at coding. Initially in Python, C++, plan to incorporate C#.  
 Times using int instead of long long gave wrong answer 4. 
 ## C++ Tips 
+
+### Multiset erase 
+In C++, the std::multiset::erase(const value_type& val) function removes all elements that are equal to val from the multiset. If you want to remove only a single instance of val, you would need to use an iterator to specify the exact element to remove.  
 ### Difference Array
 Have an array and doing a lot of changing ranges of numbers, consider creating d = [a1-a0, a2-a1] etc. Only need to update the start and end of the range in that case.  
 
+### O(n) vs O(N^2) DP (187D)  
+We needed to count the number of intervals with odd sum (number of L<=R sum(a[L:R]))%2==1). Instead of iterating through L and R (optimised with prefix sum so O(N^2) not O(N^3), we keep a track the total sum and the number of intervals that made the sum even/odd. If the sum is now odd, the number of L is cnt_even, else cnt_odd. Remember to initialise cnt = {1,0} as 0 is even.  
 ### Bit operations
 Is ```nums[l]&nums[l+1]&...&nums[r]>n```?, do each bit separately, calc prefix sum, and add up the bits where pref[b]-pref[a-1] = b - a + 1.  
 
@@ -34,14 +39,16 @@ long long ~ (-10^18 to +10^18).
 Estimate the largest possible value, eg if counting sum of 10^5 values in range [0,10^8] the sum could be up to 10^13, requiring long long.  
 
 ## Lessons Learnt 
-
-## O-1 Knapsack
+### Kth best element in moving window size d. 
+Keep a set of k elements and a set of the remaining d-k. remove the i-d-1th and add the ith.  
+### O-1 Knapsack
 Iterate over items i,w, over max capacity m, dp[i][m] = dp[i-1][m] || dp[i-1][m-w]. 
 
 ### Grid Rotation 
 Square grid, NxN: S[i][j];S[j][n - i - 1]; S[n - i - 1][n - j - 1]; S[n - j - 1][i];  
 
 ### Round 918 (1915F)-  Ordered_set 
+Leetcode 122, used for keeping track of first k items in a moving window, for multiset, used pair<num,idx> so no issues.
 Count number of intervals entirely within another interval: that is to count the number of pairs of intervals [a1,b1], [a2,b2] such that a1 < a2 < b2 < b1. 
 ```
 Initialise list A = [], int ans = 0   
