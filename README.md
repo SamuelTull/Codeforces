@@ -44,6 +44,7 @@ Iterate over items i,w, over max capacity m, dp[i][m] = dp[i-1][m] || dp[i-1][m-
 Square grid, NxN: S[i][j];S[j][n - i - 1]; S[n - i - 1][n - j - 1]; S[n - j - 1][i];  
 
 ### Round 918 (1915F)-  Ordered_set 
+Leetcode 122, used for keeping track of first k items in a moving window, for multiset, used pair<num,idx> so no issues.
 Count number of intervals entirely within another interval: that is to count the number of pairs of intervals [a1,b1], [a2,b2] such that a1 < a2 < b2 < b1. 
 ```
 Initialise list A = [], int ans = 0   
