@@ -2,6 +2,9 @@
 Attempting contests and past problems to get better at coding. Initially in Python, C++, plan to incorporate C#.  
 Times using int instead of long long gave wrong answer 4. 
 ## C++ Tips 
+
+### Multiset erase 
+In C++, the std::multiset::erase(const value_type& val) function removes all elements that are equal to val from the multiset. If you want to remove only a single instance of val, you would need to use an iterator to specify the exact element to remove.  
 ### Difference Array
 Have an array and doing a lot of changing ranges of numbers, consider creating d = [a1-a0, a2-a1] etc. Only need to update the start and end of the range in that case.  
 
@@ -36,8 +39,9 @@ long long ~ (-10^18 to +10^18).
 Estimate the largest possible value, eg if counting sum of 10^5 values in range [0,10^8] the sum could be up to 10^13, requiring long long.  
 
 ## Lessons Learnt 
-
-## O-1 Knapsack
+### Kth best element in moving window size d. 
+Keep a set of k elements and a set of the remaining d-k. remove the i-d-1th and add the ith.  
+### O-1 Knapsack
 Iterate over items i,w, over max capacity m, dp[i][m] = dp[i-1][m] || dp[i-1][m-w]. 
 
 ### Grid Rotation 
