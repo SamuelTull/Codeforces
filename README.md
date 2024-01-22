@@ -1,32 +1,27 @@
 # Codeforces
 Attempting contests and past problems to get better at coding. Initially in Python, C++, plan to incorporate C#.  
-Times using int instead of long long gave wrong answer 4. 
+Times using int instead of long long gave WA : 4  
+Times using long long instead of int gave TLE: 0  
 ## C++ Tips 
 
 ### Multiset erase 
 In C++, the std::multiset::erase(const value_type& val) function removes all elements that are equal to val from the multiset. If you want to remove only a single instance of val, you would need to use an iterator to specify the exact element to remove.  
-### Difference Array
-Have an array and doing a lot of changing ranges of numbers, consider creating d = [a1-a0, a2-a1] etc. Only need to update the start and end of the range in that case.  
-
-### O(n) vs O(N^2) DP (187D)  
-We needed to count the number of intervals with odd sum (number of L<=R sum(a[L:R]))%2==1). Instead of iterating through L and R (optimised with prefix sum so O(N^2) not O(N^3), we keep a track the total sum and the number of intervals that made the sum even/odd. If the sum is now odd, the number of L is cnt_even, else cnt_odd. Remember to initialise cnt = {1,0} as 0 is even.  
-### Bit operations
-Is ```nums[l]&nums[l+1]&...&nums[r]>n```?, do each bit separately, calc prefix sum, and add up the bits where pref[b]-pref[a-1] = b - a + 1.  
 
 ### SEEN
-vector<bool> seen(n), performs better than set<int> seen, unless n is huge and sparse.  
+vector<bool> seen(n), performs better than set<int>/unordered_set<int> seen, unless sparse.  
 
 ### References
-In 1896D was getting TLE. Was creating a new set every function call as was not using ```&```.  
+REMEMBER ```&```.  
 
 ### Order of Operations
 ```a==b==c``` is NOT as expected. Is checking ```(a==b)==c```. Use ```a == b && b == c```.  
 
 ### Priority Queue  
-For shortest path, use ```priority_queue<tuple<ll, int, int>, vector<tuple<ll, int, int>>, greater<tuple<ll, int, int>>> Q;```.  The arguments are Type, ContainerType and the Compare, Less is used by default, but greater ensures the smallest is on the top of the heap. Use std::vector(n,llinf) rather than map if we know all the states, huge speed up due to faster access time O(1) vs O(log n).  
+For shortest path, use ```priority_queue<tuple<ll, int, int>, vector<tuple<ll, int, int>>, greater<tuple<ll, int, int>>> Q;```.  The arguments are Type, ContainerType and the Compare, Less is used by default, but greater ensures the smallest is on the top of the heap. Use std::vector(n,llinf) for seen rather than map if we know all the states, huge speed up due to faster access time O(1) vs O(log n).  
 
 ### Ordered Set
-```__gnu_pbds```-based ```ordered_set```, for when we need to frequently find the index of a value. O(log n) ```insert```/```erase``` (same as ```std::set```), but also O(log n) ```.order_of_key``` and ```find_by_order```. Worst case - O(n) for ```std::set``` as must iterate from ```upper_bound``` to end.   
+```__gnu_pbds```-based ```ordered_set```, for when we need to frequently find the index of a value. O(log n) ```insert```/```erase``` (same as ```std::set```), but also O(log n) ```.order_of_key``` and ```find_by_order```. Worst case - O(n) for ```std::set``` as must iterate from ```upper_bound``` to end. Use index for multiset. 
+
 ### Modulus % 
 The modulus operator % does not work as expected with negative numbers. It does not return the remainder of the division, but the signed remainder, which can be negative. To ensure that the result is always positive, add N before taking the modulus.  
 
@@ -36,9 +31,18 @@ When you declare an instance of a class (e.g. ```set s;```), the class's default
 ### Integer overflow
 int ~ (-10^9 to +10^9).  
 long long ~ (-10^18 to +10^18).  
-Estimate the largest possible value, eg if counting sum of 10^5 values in range [0,10^8] the sum could be up to 10^13, requiring long long.  
+Estimate the largest possible value, eg if counting the sum of 10^5 values up to 10^8 the worst case sum is 10^13, requiring long long.  
 
 ## Lessons Learnt 
+### Graph distances with mostly weights of 1. (Leetcode 381).  
+Mostly stepping along a number line, need to count the number of nodes that are 1,2,...n away. Rather than O(n^2) solution, can achieve O(n) with burning rope method: for each i a[0]+=2 (burns in both directions), a[i]-=1, a[n-1-i]-=1 (stops at endpoints) then answer is prefix sum of a.   
+### Difference Array
+Have an array and doing lots of queries of the form a[i] + x for a[l:r], consider creating d = [a1-a0, a2-a1] etc. Only need to update the a[l]+=x and a[r+1]-=x.   
+
+### O(n) vs O(N^2) DP (187D)  
+We needed to count the number of intervals with odd sum (number of L<=R sum(a[L:R]))%2==1). Instead of iterating through L and R (optimised with prefix sum so O(N^2) not O(N^3), we keep a track the total sum and the number of intervals that made the sum even/odd. If the sum is now odd, the number of L is cnt_even, else cnt_odd. Remember to initialise cnt = {1,0} as 0 is even.  
+### Bit operations
+Is ```nums[l]&nums[l+1]&...&nums[r]>n```?, do each bit separately, calc prefix sum, and add up the bits where pref[b]-pref[a-1] = b - a + 1.  
 ### Kth best element in moving window size d. 
 Keep a set of k elements and a set of the remaining d-k. remove the i-d-1th and add the ith.  
 ### O-1 Knapsack
