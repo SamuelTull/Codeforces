@@ -4,6 +4,9 @@ Times using int instead of long long gave WA : 4
 Times using long long instead of int gave TLE: 0  
 ## C++ Tips 
 
+### Accumulate overflow  
+Reminder that the sum of ints may overflow- remember to use ```0LL``` in accumulate.  ```long long s = accumulate(a.begin(), a.end(), 0LL);```   
+
 ### Multiset erase 
 In C++, the std::multiset::erase(const value_type& val) function removes all elements that are equal to val from the multiset. If you want to remove only a single instance of val, you would need to use an iterator to specify the exact element to remove.  
 
