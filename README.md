@@ -4,6 +4,9 @@ Times using int instead of long long gave WA : 4
 Times using long long instead of int gave TLE: 0  
 ## C++ Tips 
 
+### __builtin_popcount  
+Number of bits that are ones. One use- check if power of 2 (popcount==1)  
+
 ### Accumulate overflow  
 Reminder that the sum of ints may overflow- remember to use ```0LL``` in accumulate.  ```long long s = accumulate(a.begin(), a.end(), 0LL);```   
 
