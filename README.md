@@ -37,6 +37,9 @@ long long ~ (-10^18 to +10^18).
 Estimate the largest possible value, eg if counting the sum of 10^5 values up to 10^8 the worst case sum is 10^13, requiring long long.  
 
 ## Lessons Learnt 
+### O(sqrt(N)) for factors  
+When finding divisors remember no need to check between sqrt(x)+1 to x! Dont get TLE with O(n) solution.  
+
 ### Graph distances with mostly weights of 1. (Leetcode 381).  
 Mostly stepping along a number line, need to count the number of nodes that are 1,2,...n away. Rather than O(n^2) solution, can achieve O(n) with burning rope method: for each i a[0]+=2 (burns in both directions), a[i]-=1, a[n-1-i]-=1 (stops at endpoints) then answer is prefix sum of a.   
 ### Difference Array
