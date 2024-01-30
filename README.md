@@ -3,6 +3,8 @@ Attempting contests and past problems to get better at coding. Initially in Pyth
 Times using int instead of long long gave WA : 4  
 Times using long long instead of int gave TLE: 0  
 ## C++ Tips 
+### && rather than &  
+```&&``` only does the right side if the left side is true, ```&``` computes the bitwise and of both. Also with something like ```(a & 1<<i)``` and ```(b & 1<<j)```, careful using ```&``` if ```i``` and ```j``` are not equal, as for example ```(9&8) & (5&4)``` = ```8 & 4``` = ```0``` NOT ```true and true = true``` as desired. Safer to use ```&&```.    
 
 ### __builtin_popcount  
 Number of bits that are ones. One use- check if power of 2 (popcount==1)  
