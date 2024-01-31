@@ -3,6 +3,14 @@ Attempting contests and past problems to get better at coding. Initially in Pyth
 Times using int instead of long long gave WA : 4  
 Times using long long instead of int gave TLE: 0  
 ## C++ Tips 
+### && rather than &  
+```&&``` only does the right side if the left side is true, ```&``` computes the bitwise and of both. Also with something like ```(a & 1<<i)``` and ```(b & 1<<j)```, careful using ```&``` if ```i``` and ```j``` are not equal, as for example ```(9&8) & (5&4)``` = ```8 & 4``` = ```0``` NOT ```true and true = true``` as desired. Safer to use ```&&```.    
+
+### __builtin_popcount  
+Number of bits that are ones. One use- check if power of 2 (popcount==1)  
+
+### Accumulate overflow  
+Reminder that the sum of ints may overflow- remember to use ```0LL``` in accumulate.  ```long long s = accumulate(a.begin(), a.end(), 0LL);```   
 
 ### overflow from 1<<x
 use 1LL << x 
@@ -37,6 +45,9 @@ long long ~ (-10^18 to +10^18).
 Estimate the largest possible value, eg if counting the sum of 10^5 values up to 10^8 the worst case sum is 10^13, requiring long long.  
 
 ## Lessons Learnt 
+### O(sqrt(N)) for factors  
+When finding divisors remember no need to check between sqrt(x)+1 to x! Dont get TLE with O(n) solution.  
+
 ### Graph distances with mostly weights of 1. (Leetcode 381).  
 Mostly stepping along a number line, need to count the number of nodes that are 1,2,...n away. Rather than O(n^2) solution, can achieve O(n) with burning rope method: for each i a[0]+=2 (burns in both directions), a[i]-=1, a[n-1-i]-=1 (stops at endpoints) then answer is prefix sum of a.   
 ### Difference Array
