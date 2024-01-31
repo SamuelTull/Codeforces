@@ -5,8 +5,9 @@
 using namespace std;
 #define int long long
 const int MOD = 998244353;
-const int INF = 1e18;
-// const int INF = 1e9;
+const int INF = 1e18; // 1e9
+const int MAXBIT = 62;//30
+
 #define dbg(x)cout<<(#x)<<": [";for(auto i=x.begin();i!=x.end();++i)cout<<*i<<(next(i)!=x.end()?", ":"");cout<<"]\n"; // container 
 #define dbgm(x)cout<<(#x)<<": [";for(auto i=x.begin();i!=x.end();++i)cout<<"("<<i->first<<", " << i->second <<(next(i)!=x.end()?"), ":")");cout<<"]\n"; // map or container<pair>
 #define dbgv(x,n)cout<<(#x)<<": [";for(auto i=x.begin();i!=x.end();++i){cout<<"(";int j=n;while(j--){cout<<(*i)[j]<<(j==0?"":", ");};cout<<(next(i)!=x.end()?"), ":")");};cout<<"]\n"; // vector of vectors
@@ -15,52 +16,35 @@ const int INF = 1e18;
 template <typename T>
 vector<pair<T,int>>getStreaks(vector<T> a){vector<pair<T,int>>streaks;int n=a.size();int i=0;while(i<n){int j=i;while(j<n&&a[j]==a[i])j++;streaks.push_back({a[i],j-i});i=j;}return streaks;}
 vector<pair<char,int>>getStreaks(string s){return getStreaks(vector<char>(s.begin(),s.end()));}
-// ordered_set
 using ordered_set = __gnu_pbds::tree<int, __gnu_pbds::null_type, less<int>, __gnu_pbds::rb_tree_tag, __gnu_pbds::tree_order_statistics_node_update>; // order_of_key(a);find_by_order(n)
+//broken keyboard: (9oOLl>.
 // clang-format on
-
-bool solve()
+long long solve()
 {
-    int n, num, s = 0;
+    int n, num;
     cin >> n;
-    map<int, int> a;
+    vector<int> a(n);
     for (int i = 0; i < n; i++)
     {
-        cin >> num;
-        s += num;
-        a[num]++;
+        cin >> a[i];
     }
-    if (s % n != 0)
-        return false;
-    s /= n;
-
-    map<int, int> X, Y;
-    for (auto [ai, vi] : a)
+    int ans = 0, i = 0, j, k;
+    while (i < n)
     {
-        if (ai == s)
-            continue;
-        else
+        bool endo = (a[i] != 0);
+        j = i + 1;
+        while (j < n && a[j] != 0)
         {
-            bool ok = false;
-            // 2^x  - ai + s = 2^y
-            for (int x = 0; x < 60; x++)
+            if (a[j] == 2)
             {
-                if ((1LL << x) - ai + s <= 0)
-                    continue;
-                int y = log2((1LL << x) - ai + s);
-                if ((1LL << x) - (1LL << y) == ai - s)
-                {
-                    X[x] += vi;
-                    Y[y] += vi;
-                    ok = true;
-                    break;
-                }
+                endo = true;
             }
-            if (!ok)
-                return false;
+            j++;
         }
+        i = j + endo;
+        ans++;
     }
-    return X == Y;
+    return ans;
 }
 
 signed main()
@@ -69,8 +53,7 @@ signed main()
     cin.tie(NULL);
     cout.tie(NULL);
     int t = 1;
-    cin >> t;
     while (t--)
-        cout << (solve() ? "Yes" : "No") << "\n";
+        cout << solve() << "\n";
     return 0;
 }

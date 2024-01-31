@@ -19,48 +19,24 @@ vector<pair<char,int>>getStreaks(string s){return getStreaks(vector<char>(s.begi
 using ordered_set = __gnu_pbds::tree<int, __gnu_pbds::null_type, less<int>, __gnu_pbds::rb_tree_tag, __gnu_pbds::tree_order_statistics_node_update>; // order_of_key(a);find_by_order(n)
 // clang-format on
 
-bool solve()
+void solve()
 {
-    int n, num, s = 0;
+    int n, num, q, x, y;
     cin >> n;
-    map<int, int> a;
+    vector<int> a(n);
     for (int i = 0; i < n; i++)
+        cin >> a[i];
+    map<array<int, 2>, int> m;
+    for (int i = 0; i < n; i++)
+        for (int j = i + 1; j < n; j++)
+            m[{a[i] + a[j], a[i] * a[j]}]++;
+    cin >> q;
+    while (q--)
     {
-        cin >> num;
-        s += num;
-        a[num]++;
+        cin >> x >> y;
+        cout << m[{x, y}] << " ";
     }
-    if (s % n != 0)
-        return false;
-    s /= n;
-
-    map<int, int> X, Y;
-    for (auto [ai, vi] : a)
-    {
-        if (ai == s)
-            continue;
-        else
-        {
-            bool ok = false;
-            // 2^x  - ai + s = 2^y
-            for (int x = 0; x < 60; x++)
-            {
-                if ((1LL << x) - ai + s <= 0)
-                    continue;
-                int y = log2((1LL << x) - ai + s);
-                if ((1LL << x) - (1LL << y) == ai - s)
-                {
-                    X[x] += vi;
-                    Y[y] += vi;
-                    ok = true;
-                    break;
-                }
-            }
-            if (!ok)
-                return false;
-        }
-    }
-    return X == Y;
+    cout << "\n";
 }
 
 signed main()
@@ -71,6 +47,6 @@ signed main()
     int t = 1;
     cin >> t;
     while (t--)
-        cout << (solve() ? "Yes" : "No") << "\n";
+        solve();
     return 0;
 }

@@ -19,48 +19,62 @@ vector<pair<char,int>>getStreaks(string s){return getStreaks(vector<char>(s.begi
 using ordered_set = __gnu_pbds::tree<int, __gnu_pbds::null_type, less<int>, __gnu_pbds::rb_tree_tag, __gnu_pbds::tree_order_statistics_node_update>; // order_of_key(a);find_by_order(n)
 // clang-format on
 
-bool solve()
+int solve()
 {
-    int n, num, s = 0;
+    int n, num, ans = 0;
     cin >> n;
-    map<int, int> a;
+    vector<string> a(n);
     for (int i = 0; i < n; i++)
+        cin >> a[i];
+    vector<bool> op(n), L(n), R(n), D(n);
+    // row 1
+    for (int c = 0; c < n; c++)
     {
-        cin >> num;
-        s += num;
-        a[num]++;
-    }
-    if (s % n != 0)
-        return false;
-    s /= n;
-
-    map<int, int> X, Y;
-    for (auto [ai, vi] : a)
-    {
-        if (ai == s)
-            continue;
-        else
+        if (a[0][c] == '1')
         {
-            bool ok = false;
-            // 2^x  - ai + s = 2^y
-            for (int x = 0; x < 60; x++)
-            {
-                if ((1LL << x) - ai + s <= 0)
-                    continue;
-                int y = log2((1LL << x) - ai + s);
-                if ((1LL << x) - (1LL << y) == ai - s)
-                {
-                    X[x] += vi;
-                    Y[y] += vi;
-                    ok = true;
-                    break;
-                }
-            }
-            if (!ok)
-                return false;
+            op[c] = true;
+            ans++;
         }
     }
-    return X == Y;
+
+    for (int r = 1; r < n; r++)
+    {
+        // cout << "Before\n";
+        // dbgvar(ans);
+        // dbg(a[r]);
+        // dbg(op);
+        // dbg(L);
+        // dbg(R);
+        // dbg(D);
+        for (int c = 0; c < n - 1; c++)
+        {
+            L[c] = op[c + 1] ^ L[c + 1];
+            R[n - c - 1] = op[n - c - 2] ^ R[n - c - 2];
+        }
+        for (int c = 0; c < n; c++)
+        {
+            D[c] = L[c] ^ R[c] ^ D[c] ^ op[c];
+        }
+
+        for (int c = 0; c < n; c++)
+        {
+            if (D[c] ^ (a[r][c] == '1'))
+            {
+                op[c] = true;
+                ans++;
+            }
+            else
+                op[c] = false;
+        }
+
+        // cout << "After\n";
+        // dbgvar(ans);
+        // dbg(L);
+        // dbg(R);
+        // dbg(D);
+        // dbg(op);
+    }
+    return ans;
 }
 
 signed main()
@@ -71,6 +85,6 @@ signed main()
     int t = 1;
     cin >> t;
     while (t--)
-        cout << (solve() ? "Yes" : "No") << "\n";
+        cout << solve() << "\n";
     return 0;
 }

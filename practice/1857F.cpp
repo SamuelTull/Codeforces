@@ -18,49 +18,66 @@ vector<pair<char,int>>getStreaks(string s){return getStreaks(vector<char>(s.begi
 // ordered_set
 using ordered_set = __gnu_pbds::tree<int, __gnu_pbds::null_type, less<int>, __gnu_pbds::rb_tree_tag, __gnu_pbds::tree_order_statistics_node_update>; // order_of_key(a);find_by_order(n)
 // clang-format on
-
-bool solve()
+const int MAXN = 1e9 + 5;
+int choose2(int n)
 {
-    int n, num, s = 0;
+    if (n < 2)
+        return 0;
+    return n * (n - 1) / 2;
+}
+
+void solve()
+{
+    int n, num, q, b, c;
     cin >> n;
-    map<int, int> a;
+    array<int, MAXN> m;
     for (int i = 0; i < n; i++)
     {
         cin >> num;
-        s += num;
-        a[num]++;
+        m[num]++;
     }
-    if (s % n != 0)
-        return false;
-    s /= n;
-
-    map<int, int> X, Y;
-    for (auto [ai, vi] : a)
+    cin >> q;
+    while (q--)
     {
-        if (ai == s)
-            continue;
-        else
+        cin >> b >> c;
+        // i + j = b
+        // i * j = c
+        // x^2 - bx + c
+        // x = (b +- sqrt(b^2 - 4c)) / 2
+        int D = b * b - 4 * c;
+        if (D < 0)
         {
-            bool ok = false;
-            // 2^x  - ai + s = 2^y
-            for (int x = 0; x < 60; x++)
-            {
-                if ((1LL << x) - ai + s <= 0)
-                    continue;
-                int y = log2((1LL << x) - ai + s);
-                if ((1LL << x) - (1LL << y) == ai - s)
-                {
-                    X[x] += vi;
-                    Y[y] += vi;
-                    ok = true;
-                    break;
-                }
-            }
-            if (!ok)
-                return false;
+            cout << "0 ";
+            continue;
         }
+        // else if (D == 0)
+        //     if (b % 2 != 0 || b / 2 >= MAXN)
+        //     {
+        //         cout << "0 ";
+        //         continue;
+        //     }
+        //     else
+        //     {
+        //         cout << choose2(m[b / 2]) << " ";
+        //         continue;
+        //     }
+        // else
+        // {
+        //     int x1 = (b + sqrt(D)) / 2;
+        //     int x2 = (b - sqrt(D)) / 2;
+        //     if ((x1 + x2 != b) || (x1 * x2 != c) || x1 < 0 || x1 >= MAXN || x2 < 0 || x2 >= MAXN)
+        //     {
+        //         cout << "0 ";
+        //         continue;
+        //     }
+        //     else
+        //     {
+        //         cout << m[x1] * m[x2] << " ";
+        //         continue;
+        //     }
+        // }
     }
-    return X == Y;
+    cout << "\n";
 }
 
 signed main()
@@ -71,6 +88,6 @@ signed main()
     int t = 1;
     cin >> t;
     while (t--)
-        cout << (solve() ? "Yes" : "No") << "\n";
+        solve();
     return 0;
 }

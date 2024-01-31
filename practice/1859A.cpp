@@ -19,17 +19,22 @@ void solve()
     vector<int> a(n);
     for (int i = 0; i < n; i++)
         cin >> a[i];
-    vector<int> b;
-    b.push_back(a[0]);
-    for (int i = 1; i < n; i++)
+    sort(a.begin(), a.end(), greater<int>());
+    if (a[0] == a[n - 1])
     {
-        if (a[i - 1] != 1)
-            b.push_back(1);
-        b.push_back(a[i]);
+        cout << "-1\n";
+        return;
     }
-    cout << b.size() << "\n";
-    for (int i = 0; i < b.size(); i++)
-        cout << b[i] << " ";
+    int i = 0;
+    while (i < n && a[i] == a[0])
+        i++;
+    cout << n - i << " " << i << "\n";
+    for (int j = i; j < n; j++)
+        cout << a[j] << " ";
+    cout << "\n";
+    for (int j = 0; j < i; j++)
+        cout << a[j] << " ";
+    cout << "\n";
 }
 
 signed main()

@@ -12,26 +12,37 @@ const int MAXBIT = 62; //30
 #define vbg(x)cout<<(#x)<<": "<<x<<"\n"; // for variables 
 #define pbg(x)cout<<(#x)<<": ("<<x.first<<", "<<x.second<<")\n"; // for pairs
 // clang-format on
-void solve()
+bool solve()
 {
-    int n, num;
-    cin >> n;
+    int n, k, num;
+    cin >> n >> k;
     vector<int> a(n);
     for (int i = 0; i < n; i++)
-        cin >> a[i];
-    vector<int> b;
-    b.push_back(a[0]);
-    for (int i = 1; i < n; i++)
     {
-        if (a[i - 1] != 1)
-            b.push_back(1);
-        b.push_back(a[i]);
+        cin >> a[i];
     }
-    cout << b.size() << "\n";
-    for (int i = 0; i < b.size(); i++)
-        cout << b[i] << " ";
-}
 
+    int i = 0;
+    int cnt = 0;
+    while (i < n && cnt < k)
+    {
+        if (a[i] == a[0])
+            cnt++;
+        i++;
+    }
+    if (cnt < k)
+        return false;
+    if (a[0] == a[n - 1])
+        return true;
+    cnt = 0;
+    while (i < n && cnt < k)
+    {
+        if (a[i] == a[n - 1])
+            cnt++;
+        i++;
+    }
+    return cnt == k;
+}
 signed main()
 {
     ios_base::sync_with_stdio(false);
@@ -40,8 +51,6 @@ signed main()
     int t = 1;
     cin >> t;
     while (t--)
-        // cout << solve() << "\n";
-        // cout << (solve() ? "YES" : "NO") << "\n";
-        solve();
+        cout << (solve() ? "YES" : "NO") << "\n";
     return 0;
 }

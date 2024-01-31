@@ -12,24 +12,26 @@ const int MAXBIT = 62; //30
 #define vbg(x)cout<<(#x)<<": "<<x<<"\n"; // for variables 
 #define pbg(x)cout<<(#x)<<": ("<<x.first<<", "<<x.second<<")\n"; // for pairs
 // clang-format on
-void solve()
+int solve()
 {
     int n, num;
     cin >> n;
     vector<int> a(n);
     for (int i = 0; i < n; i++)
+    {
         cin >> a[i];
-    vector<int> b;
-    b.push_back(a[0]);
+    }
+    int best = a[0], cur = a[0];
     for (int i = 1; i < n; i++)
     {
-        if (a[i - 1] != 1)
-            b.push_back(1);
-        b.push_back(a[i]);
+        cur = max(cur, 0LL);
+        if ((a[i] & 1) ^ (a[i - 1] & 1))
+            cur += a[i];
+        else
+            cur = a[i];
+        best = max(best, cur);
     }
-    cout << b.size() << "\n";
-    for (int i = 0; i < b.size(); i++)
-        cout << b[i] << " ";
+    return best;
 }
 
 signed main()
@@ -40,8 +42,6 @@ signed main()
     int t = 1;
     cin >> t;
     while (t--)
-        // cout << solve() << "\n";
-        // cout << (solve() ? "YES" : "NO") << "\n";
-        solve();
+        cout << solve() << "\n";
     return 0;
 }

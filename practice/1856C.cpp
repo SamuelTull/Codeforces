@@ -18,49 +18,45 @@ vector<pair<char,int>>getStreaks(string s){return getStreaks(vector<char>(s.begi
 // ordered_set
 using ordered_set = __gnu_pbds::tree<int, __gnu_pbds::null_type, less<int>, __gnu_pbds::rb_tree_tag, __gnu_pbds::tree_order_statistics_node_update>; // order_of_key(a);find_by_order(n)
 // clang-format on
-
-bool solve()
+bool ok(vector<int> &a, int &n, int &k, int &x)
 {
-    int n, num, s = 0;
-    cin >> n;
-    map<int, int> a;
     for (int i = 0; i < n; i++)
     {
-        cin >> num;
-        s += num;
-        a[num]++;
-    }
-    if (s % n != 0)
-        return false;
-    s /= n;
-
-    map<int, int> X, Y;
-    for (auto [ai, vi] : a)
-    {
-        if (ai == s)
-            continue;
-        else
+        int cnt = 0;
+        for (int di = 0; i + di < n; di++)
         {
-            bool ok = false;
-            // 2^x  - ai + s = 2^y
-            for (int x = 0; x < 60; x++)
-            {
-                if ((1LL << x) - ai + s <= 0)
-                    continue;
-                int y = log2((1LL << x) - ai + s);
-                if ((1LL << x) - (1LL << y) == ai - s)
-                {
-                    X[x] += vi;
-                    Y[y] += vi;
-                    ok = true;
-                    break;
-                }
-            }
-            if (!ok)
-                return false;
+            if (a[i + di] >= x - di)
+                break;
+            else
+                cnt += x - di - a[i + di];
         }
+        if (cnt <= k)
+            return true;
     }
-    return X == Y;
+    return false;
+}
+int solve()
+{
+    int n, k;
+    cin >> n >> k;
+    vector<int> a(n);
+    for (int i = 0; i < n; i++)
+        cin >> a[i];
+    a.push_back(-INF);
+    n++;
+    int l = *max_element(a.begin(), a.end());
+    int r = l + min(k, n);
+    int m;
+
+    while (l < r)
+    {
+        m = (l + r + 1) / 2;
+        if (ok(a, n, k, m))
+            l = m;
+        else
+            r = m - 1;
+    }
+    return l;
 }
 
 signed main()
@@ -71,6 +67,6 @@ signed main()
     int t = 1;
     cin >> t;
     while (t--)
-        cout << (solve() ? "Yes" : "No") << "\n";
+        cout << solve() << "\n";
     return 0;
 }

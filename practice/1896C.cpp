@@ -14,22 +14,41 @@ const int MAXBIT = 62; //30
 // clang-format on
 void solve()
 {
-    int n, num;
-    cin >> n;
-    vector<int> a(n);
+    int n, x, num;
+    cin >> n >> x;
+    vector<array<int, 3>> a(n);
+    vector<int> b(n);
     for (int i = 0; i < n; i++)
-        cin >> a[i];
-    vector<int> b;
-    b.push_back(a[0]);
-    for (int i = 1; i < n; i++)
     {
-        if (a[i - 1] != 1)
-            b.push_back(1);
-        b.push_back(a[i]);
+        cin >> a[i][0];
+        a[i][1] = i;
     }
-    cout << b.size() << "\n";
-    for (int i = 0; i < b.size(); i++)
-        cout << b[i] << " ";
+    for (int i = 0; i < n; i++)
+        cin >> b[i];
+
+    sort(a.begin(), a.end());
+    sort(b.begin(), b.end());
+
+    for (int i = 0; i < n; i++)
+    {
+        a[i][2] = b[(x + i) % n];
+    }
+    int cnt = 0;
+    for (int i = 0; i < n; i++)
+        if (a[i][0] > a[i][2])
+            cnt++;
+
+    if (cnt == x)
+    {
+        cout << "YES\n";
+        sort(a.begin(), a.end(), [](array<int, 3> &a, array<int, 3> &b)
+             { return a[1] < b[1]; });
+        for (int i = 0; i < n; i++)
+            cout << a[i][2] << " ";
+        cout << "\n";
+    }
+    else
+        cout << "NO\n";
 }
 
 signed main()

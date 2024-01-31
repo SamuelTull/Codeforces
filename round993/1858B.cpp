@@ -5,8 +5,9 @@
 using namespace std;
 #define int long long
 const int MOD = 998244353;
-const int INF = 1e18;
-// const int INF = 1e9;
+const int INF = 1e18; // 1e9
+const int MAXBIT = 62;//30
+
 #define dbg(x)cout<<(#x)<<": [";for(auto i=x.begin();i!=x.end();++i)cout<<*i<<(next(i)!=x.end()?", ":"");cout<<"]\n"; // container 
 #define dbgm(x)cout<<(#x)<<": [";for(auto i=x.begin();i!=x.end();++i)cout<<"("<<i->first<<", " << i->second <<(next(i)!=x.end()?"), ":")");cout<<"]\n"; // map or container<pair>
 #define dbgv(x,n)cout<<(#x)<<": [";for(auto i=x.begin();i!=x.end();++i){cout<<"(";int j=n;while(j--){cout<<(*i)[j]<<(j==0?"":", ");};cout<<(next(i)!=x.end()?"), ":")");};cout<<"]\n"; // vector of vectors
@@ -15,52 +16,38 @@ const int INF = 1e18;
 template <typename T>
 vector<pair<T,int>>getStreaks(vector<T> a){vector<pair<T,int>>streaks;int n=a.size();int i=0;while(i<n){int j=i;while(j<n&&a[j]==a[i])j++;streaks.push_back({a[i],j-i});i=j;}return streaks;}
 vector<pair<char,int>>getStreaks(string s){return getStreaks(vector<char>(s.begin(),s.end()));}
-// ordered_set
 using ordered_set = __gnu_pbds::tree<int, __gnu_pbds::null_type, less<int>, __gnu_pbds::rb_tree_tag, __gnu_pbds::tree_order_statistics_node_update>; // order_of_key(a);find_by_order(n)
+//broken keyboard: (9oOLl>.q
 // clang-format on
-
-bool solve()
+void solve()
 {
-    int n, num, s = 0;
-    cin >> n;
-    map<int, int> a;
-    for (int i = 0; i < n; i++)
+    int n, m, d, num;
+    cin >> n >> m >> d;
+    vector<int> a(m);
+    for (int i = 0; i < m; i++)
+        cin >> a[i];
+    bool at0 = true;
+    if (a[0] != 1)
     {
-        cin >> num;
-        s += num;
-        a[num]++;
+        at0 = false;
+        a.insert(a.begin(), 1);
+        m++;
     }
-    if (s % n != 0)
-        return false;
-    s /= n;
-
-    map<int, int> X, Y;
-    for (auto [ai, vi] : a)
+    a.push_back(n + 1);
+    int ans = 0;
+    for (int i = 0; i < m; i++)
     {
-        if (ai == s)
-            continue;
-        else
-        {
-            bool ok = false;
-            // 2^x  - ai + s = 2^y
-            for (int x = 0; x < 60; x++)
-            {
-                if ((1LL << x) - ai + s <= 0)
-                    continue;
-                int y = log2((1LL << x) - ai + s);
-                if ((1LL << x) - (1LL << y) == ai - s)
-                {
-                    X[x] += vi;
-                    Y[y] += vi;
-                    ok = true;
-                    break;
-                }
-            }
-            if (!ok)
-                return false;
-        }
+        ans += 1 + (a[i + 1] - a[i] - 1) / d;
     }
-    return X == Y;
+    map<int, int> mp;
+    for (int i = 0; i < m - 1; i++)
+    {
+        int b1 = 1 + (a[i + 1] - a[i] - 1) / d, b2 = 1 + (a[i + 2] - a[i + 1] - 1) / d;
+        int after = 1 + (a[i + 2] - a[i] - 1) / d;
+        mp[b1 + b2 - after]++;
+    }
+    int mx = mp.rbegin()->first;
+    cout << ans - mx << " " << mp[mx] + (mx == 0 && at0) << "\n";
 }
 
 signed main()
@@ -71,6 +58,8 @@ signed main()
     int t = 1;
     cin >> t;
     while (t--)
-        cout << (solve() ? "Yes" : "No") << "\n";
+        // cout << solve() << "\n";
+        // cout << (solve() ? "YES" : "NO") << "\n";
+        solve();
     return 0;
 }

@@ -8,28 +8,28 @@ const int MAXBIT = 62; //30
 
 #define dbg(x)cout<<(#x)<<": [";for(auto qq=x.begin();qq!=x.end();++qq)cout<<*qq<<(next(qq)!=x.end()?", ":"");cout<<"]\n"; // container 
 #define mbg(x)cout<<(#x)<<": [";for(auto qq=x.begin();qq!=x.end();++qq)cout<<"("<<qq->first<<", "<<qq->second<<(next(qq)!=x.end()?"), ":")");cout<<"]\n"; // map or container<pair>
-#define nbg(x,n)cout<<(#x)<<": [";for(auto qq=x.begin();qq!=x.end();++qq){cout<<"(";for(auto qqq=qq->begin();qqq!=qq->end();qqq++){cout<<*qqq<<(next(qqq)!=qq->end()?", ":"");};cout<<(next(qq)!=x.end()?"), ":")");};cout<<"]\n"; // vector of vectors
-#define vbg(x)cout<<(#x)<<": "<<x<<"\n"; // for variables 
+#define vbg(x)cout<<(#x)<<": [";for(auto qq=x.begin();qq!=x.end();++qq){cout<<"(";for(auto qqq=qq->begin();qqq!=qq->end();qqq++){cout<<*qqq<<(next(qqq)!=qq->end()?", ":"");};cout<<(next(qq)!=x.end()?"), ":")");};cout<<"]\n"; // vector of vectors
+#define xbg(x)cout<<(#x)<<": "<<x<<"\n"; // for variables 
 #define pbg(x)cout<<(#x)<<": ("<<x.first<<", "<<x.second<<")\n"; // for pairs
 // clang-format on
 void solve()
 {
     int n, num;
     cin >> n;
-    vector<int> a(n);
+    vector<array<int, 2>> a(n);
     for (int i = 0; i < n; i++)
-        cin >> a[i];
-    vector<int> b;
-    b.push_back(a[0]);
-    for (int i = 1; i < n; i++)
-    {
-        if (a[i - 1] != 1)
-            b.push_back(1);
-        b.push_back(a[i]);
-    }
-    cout << b.size() << "\n";
-    for (int i = 0; i < b.size(); i++)
-        cout << b[i] << " ";
+        cin >> a[i][0];
+    for (int i = 0; i < n; i++)
+        cin >> a[i][1];
+
+    sort(a.begin(), a.end(), [](array<int, 2> a, array<int, 2> b)
+         { return a[0] + a[1] < b[0] + b[1]; });
+    for (int i = 0; i < n; i++)
+        cout << a[i][0] << " ";
+    cout << "\n";
+    for (int i = 0; i < n; i++)
+        cout << a[i][1] << " ";
+    cout << "\n";
 }
 
 signed main()

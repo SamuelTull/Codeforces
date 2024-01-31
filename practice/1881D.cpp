@@ -12,24 +12,56 @@ const int MAXBIT = 62; //30
 #define vbg(x)cout<<(#x)<<": "<<x<<"\n"; // for variables 
 #define pbg(x)cout<<(#x)<<": ("<<x.first<<", "<<x.second<<")\n"; // for pairs
 // clang-format on
-void solve()
+
+vector<int> primes;
+void sieveOfEratosthenes(int N)
+{
+    vector<bool> prime(N + 1, true);
+    prime[0] = prime[1] = false;
+    for (int p = 2; p * p <= N; p++)
+    {
+        if (prime[p] == true)
+        {
+            for (int i = p * p; i <= N; i += p)
+                prime[i] = false;
+        }
+    }
+
+    for (int p = 2; p <= N; p++)
+        if (prime[p])
+            primes.push_back(p);
+}
+
+bool solve()
 {
     int n, num;
     cin >> n;
     vector<int> a(n);
     for (int i = 0; i < n; i++)
         cin >> a[i];
-    vector<int> b;
-    b.push_back(a[0]);
-    for (int i = 1; i < n; i++)
+    int M = *max_element(a.begin(), a.end());
+    map<int, int> cnt;
+    for (int &x : a)
     {
-        if (a[i - 1] != 1)
-            b.push_back(1);
-        b.push_back(a[i]);
+        for (int p : primes)
+        {
+            while (x % p == 0)
+            {
+                x /= p;
+                cnt[p]++;
+            }
+            if (p * p > x)
+                break;
+        }
+        if (x > 1)
+            cnt[x]++;
     }
-    cout << b.size() << "\n";
-    for (int i = 0; i < b.size(); i++)
-        cout << b[i] << " ";
+    for (auto [p, c] : cnt)
+    {
+        if (c % n != 0)
+            return false;
+    }
+    return true;
 }
 
 signed main()
@@ -39,9 +71,8 @@ signed main()
     cout.tie(NULL);
     int t = 1;
     cin >> t;
+    sieveOfEratosthenes(sqrt(1e6) + 1);
     while (t--)
-        // cout << solve() << "\n";
-        // cout << (solve() ? "YES" : "NO") << "\n";
-        solve();
+        cout << (solve() ? "YES" : "NO") << "\n";
     return 0;
 }

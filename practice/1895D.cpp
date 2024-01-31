@@ -6,6 +6,7 @@ using namespace std;
 #define int long long
 const int MOD = 998244353;
 const int INF = 1e18;
+const int MAXBIT = 62; 
 // const int INF = 1e9;
 #define dbg(x)cout<<(#x)<<": [";for(auto i=x.begin();i!=x.end();++i)cout<<*i<<(next(i)!=x.end()?", ":"");cout<<"]\n"; // container 
 #define dbgm(x)cout<<(#x)<<": [";for(auto i=x.begin();i!=x.end();++i)cout<<"("<<i->first<<", " << i->second <<(next(i)!=x.end()?"), ":")");cout<<"]\n"; // map or container<pair>
@@ -19,48 +20,39 @@ vector<pair<char,int>>getStreaks(string s){return getStreaks(vector<char>(s.begi
 using ordered_set = __gnu_pbds::tree<int, __gnu_pbds::null_type, less<int>, __gnu_pbds::rb_tree_tag, __gnu_pbds::tree_order_statistics_node_update>; // order_of_key(a);find_by_order(n)
 // clang-format on
 
-bool solve()
+void solve()
 {
-    int n, num, s = 0;
+    int n, num;
     cin >> n;
-    map<int, int> a;
-    for (int i = 0; i < n; i++)
-    {
-        cin >> num;
-        s += num;
-        a[num]++;
-    }
-    if (s % n != 0)
-        return false;
-    s /= n;
 
-    map<int, int> X, Y;
-    for (auto [ai, vi] : a)
+    vector<int> a(n);
+    for (int i = 0; i < n - 1; i++)
+        cin >> a[i];
+
+    vector<int> T(MAXBIT);
+    for (int x = 1; x < n; x++)
+        for (int bit = 0; bit < MAXBIT; bit++)
+            if (x & (1LL << bit))
+                T[bit]++;
+
+    vector<int> b(n), S(MAXBIT);
+    for (int i = 0; i < n - 1; i++)
     {
-        if (ai == s)
-            continue;
-        else
-        {
-            bool ok = false;
-            // 2^x  - ai + s = 2^y
-            for (int x = 0; x < 60; x++)
-            {
-                if ((1LL << x) - ai + s <= 0)
-                    continue;
-                int y = log2((1LL << x) - ai + s);
-                if ((1LL << x) - (1LL << y) == ai - s)
-                {
-                    X[x] += vi;
-                    Y[y] += vi;
-                    ok = true;
-                    break;
-                }
-            }
-            if (!ok)
-                return false;
-        }
+        b[i + 1] = b[i] ^ a[i];
+        for (int bit = 0; bit < MAXBIT; bit++)
+            if (b[i + 1] & (1LL << bit))
+                S[bit]++;
     }
-    return X == Y;
+
+    int x = 0;
+    for (int bit = 0; bit < MAXBIT; bit++)
+    {
+        if (S[bit] != T[bit])
+            x ^= (1LL << bit);
+    }
+
+    for (int i = 0; i < n; i++)
+        cout << (b[i] ^ x) << " ";
 }
 
 signed main()
@@ -69,8 +61,7 @@ signed main()
     cin.tie(NULL);
     cout.tie(NULL);
     int t = 1;
-    cin >> t;
     while (t--)
-        cout << (solve() ? "Yes" : "No") << "\n";
+        solve();
     return 0;
 }
