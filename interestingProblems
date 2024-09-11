@@ -1,0 +1,4 @@
+Interesting problems
+
+https://codeforces.com/contest/1985/problem/G
+Rather than loop between L<=x<=R, d x<=R - x<=L 
